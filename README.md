@@ -78,7 +78,7 @@ myController.php
             $emailStrategy  = $notificationStrategyFactory->NotificationStrategy();
             $phone          = "+33xxxxxxx";
             $msg            = "Only for testing dev !!";
-            $emailStrategy->setNotification((new Notification($msg, ['browser'])));
+            $emailStrategy->setNotification((new Notification($msg, ['sms'])));
             $emailStrategy->setRecipient(new NoRecipient());
             // put in Queue
             $notificationQueue->addNotification($emailStrategy);
