@@ -9,9 +9,9 @@ Be aware that there is no testing code !
 Install the bundle for Composer !! as is still on beta version !!
 
 ````
-  composer require xorgxx/neoxNotifyBundle
+  composer require xorgxx/neox-notify-bundle
   or 
-  composer require xorgxx/neoxNotifyBundle:0.*
+  composer require xorgxx/neox-notify-bundle:0.*
 ````
 
 Make sure that is register the bundle in your AppKernel:
