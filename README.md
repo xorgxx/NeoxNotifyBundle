@@ -75,11 +75,12 @@ myController.php
             $notificationQueue->addNotification($notification);
             
             // ====================== SMS ==========================
-            $emailStrategy  = $notificationStrategyFactory->NotificationStrategy();
-            $phone          = "+33xxxxxxx";
-            $msg            = "Only for testing dev !!";
-            $emailStrategy->setNotification((new Notification($msg, ['sms'])));
-            $emailStrategy->setRecipient(new NoRecipient());
+            $notification  = $this->notificationStrategyFactory->NotificationStrategy();
+            $phone         = "+" . tokyo->getPhoneNumber()->getCountryCode() . tokyo->getPhoneNumber()->getNationalNumber();
+            $msg           = "Only for testing dev !!";            
+            $notification->setNotification((new Notification($msg, ['sms'])));
+            $notification->setRecipient(new Recipient("null", $phone));
+            $notificationQueue->addNotification($notification);
             // put in Queue
             $notificationQueue->addNotification($emailStrategy);
             
