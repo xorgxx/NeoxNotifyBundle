@@ -33,6 +33,21 @@ return [
 ## !! you style need to make configuration !! 
 it at this time we ded not optimize all !!
 
+## Configuration
+* Install and configure  [Symfony notifier](https://symfony.com/doc/current/notifier.html#installation)
+* Creat folder for template 
+```
+└─── src
+│   └─── Templates
+│       └─── _Partial
+|           └─── Emails
+|               └─── include      <--- this to store the base template
+|               └─── template     <--- to store Template
+```
+Configuration except that you have install stimulus/turbo-ux and setup correctly !!
+Base css on Bootstrap 5 so if you have install on your project all css and js from Bs5 going to be applique.
+
+
 ## Contributing
 If you want to contribute \(thank you!\) to this bundle, here are some guidelines:
 
