@@ -1,4 +1,6 @@
 {
+    "name": "xorgxx/neoxNotifyBundle",
+    "description": "simple sending notification ",
     "type": "symfony-bundle",
     "license": "proprietary",
     "minimum-stability": "stable",
