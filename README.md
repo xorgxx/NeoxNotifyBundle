@@ -30,6 +30,9 @@ return [
 
  ..... Done 🎈
 
+## !! you style need to make configuration !! 
+it at this time we ded not optimize all !!
+
 ## Contributing
 If you want to contribute \(thank you!\) to this bundle, here are some guidelines:
 
