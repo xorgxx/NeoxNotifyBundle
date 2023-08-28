@@ -1,5 +1,5 @@
 {
-    "name": "xorgxx/neox_notify_bundle",
+    "name": "xorgxx/neox-notify-bundle",
     "description": "simple sending notification ",
     "type": "symfony-bundle",
     "license": "proprietary",
