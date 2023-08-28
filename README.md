@@ -3,8 +3,7 @@ This bundle provides a simple and flexible to provide "warp" of notification* in
 Its main goal is to make it simple for you, give simple command to send by what eve you want : email (with or no attachment), browser, sms .....
 Be aware that there is no testing code !
 
-[![2023-05-24-12-05-31.png](https://i.postimg.cc/zfLGNQ3r/2023-05-24-12-05-31.png)](https://postimg.cc/rdkkCQSn)
-[![2023-05-05-00-08-37.png](https://i.postimg.cc/K8DnLR5z/2023-05-05-00-08-37.png)](https://postimg.cc/FY1dXF85)
+[![2023-08-28-15-43-05.png](https://i.postimg.cc/Njz9rBC5/2023-08-28-15-43-05.png)](https://postimg.cc/3k2Js5TT)
 
 ## Installation BETA VERSION !!
 Install the bundle for Composer !! as is still on beta version !!
