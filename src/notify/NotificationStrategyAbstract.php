@@ -20,18 +20,21 @@
         
         protected NotifierInterface $notifier;
         protected ParameterBagInterface $parameterBag;
+        protected $neoxTemplate;
         
-        public function __construct(NotifierInterface $notifier, ParameterBagInterface $parameterBag)
+        public function __construct(NotifierInterface $notifier, ParameterBagInterface $parameterBag, $neoxTemplate = null)
         {
             parent::__construct();
             $this->notifier         = $notifier;
             $this->parameterBag     = $parameterBag;
+            $this->neoxTemplate     = $neoxTemplate;
             
             // set by default sender & recipient to admin web site address
             $this->setSender(new Recipient($this->parameterBag->get("email-service"), $this->parameterBag->get("sms-service")));
             $this->setRecipient(new Recipient($this->parameterBag->get("email-service"), $this->parameterBag->get("sms-service")));
             
-           
+            
+            
         }
         
         /**

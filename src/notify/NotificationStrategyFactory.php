@@ -49,15 +49,17 @@
     {
         private NotifierInterface       $notifier;
         private ParameterBagInterface   $parameterBag;
+        private $neoxTemplate;
         
-        public function __construct(NotifierInterface $notifier, ParameterBagInterface $parameterBag)
+        public function __construct(NotifierInterface $notifier, ParameterBagInterface $parameterBag, $neoxTemplate)
         {
             $this->notifier             = $notifier;
             $this->parameterBag         = $parameterBag;
+            $this->neoxTemplate         = $neoxTemplate;
         }
         public function EmailStrategy(): EmailNotificationStrategy
         {
-            return new EmailNotificationStrategy($this->notifier, $this->parameterBag);
+            return new EmailNotificationStrategy($this->notifier, $this->parameterBag, $this->neoxTemplate );
         }
         
         public function NotificationStrategy(): NotificationStrategy

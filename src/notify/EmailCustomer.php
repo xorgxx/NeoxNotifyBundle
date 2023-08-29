@@ -4,6 +4,7 @@
     
     use finfo;
     use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+    use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
     use Symfony\Component\Notifier\Message\EmailMessage;
     use Symfony\Component\Notifier\Notification\EmailNotificationInterface;
     use Symfony\Component\Notifier\Notification\Notification;
@@ -12,14 +13,18 @@
     class EmailCustomer extends Notification implements EmailNotificationInterface
     {
         private NotificationStrategyAbstract $option;
+        private $neoxTemplate;
+        
         
         /**
          * @param NotificationStrategyAbstract $option
+
          */
-        public function __construct(NotificationStrategyAbstract $option )
+        public function __construct(NotificationStrategyAbstract $option, $neoxTemplate )
         {
             parent::__construct();
             $this->option = $option;
+            $this->neoxTemplate = $neoxTemplate;
         }
         
         public function asEmailMessage(EmailRecipientInterface $recipient, string $transport = null): ?EmailMessage
@@ -32,8 +37,9 @@
              * @var TemplatedEmail $email
              * markAsPublic() take all annotation symfony.
              */
+      
             $email = $message->getMessage()->markAsPublic();
-            $email->htmlTemplate( 'Partial/Emails/' . ($option->getTemplate() ? : 'default'). '.html.twig' );
+            $email->htmlTemplate( $this->neoxTemplate['emails'] . "/" . ($option->getTemplate() ? : 'default'). '.html.twig' );
             $option->setContext("subject",$option->getSubject());
             $option->setContext("content",$option->getContent());
             
