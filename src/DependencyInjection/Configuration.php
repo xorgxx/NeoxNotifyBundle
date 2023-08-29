@@ -1,6 +1,6 @@
 <?php
     
-    namespace NeoxNotify\NeoxtifyBundle\DependencyInjection;
+    namespace NeoxNotify\NeoxNotifyBundle\DependencyInjection;
     
     use Symfony\Component\Config\Definition\Builder\TreeBuilder;
     use Symfony\Component\Config\Definition\ConfigurationInterface;

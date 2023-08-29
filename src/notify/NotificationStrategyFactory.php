@@ -49,9 +49,9 @@
     {
         private NotifierInterface       $notifier;
         private ParameterBagInterface   $parameterBag;
-        private $neoxTemplate;
+        private mixed $neoxTemplate;
         
-        public function __construct(NotifierInterface $notifier, ParameterBagInterface $parameterBag, $neoxTemplate)
+        public function __construct(NotifierInterface $notifier, ParameterBagInterface $parameterBag, mixed $neoxTemplate)
         {
             $this->notifier             = $notifier;
             $this->parameterBag         = $parameterBag;

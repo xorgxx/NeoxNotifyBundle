@@ -20,7 +20,7 @@
         
         protected NotifierInterface $notifier;
         protected ParameterBagInterface $parameterBag;
-        protected $neoxTemplate;
+        protected mixed $neoxTemplate;
         
         public function __construct(NotifierInterface $notifier, ParameterBagInterface $parameterBag, $neoxTemplate = null)
         {

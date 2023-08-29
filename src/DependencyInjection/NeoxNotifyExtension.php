@@ -1,6 +1,6 @@
 <?php
 
-	namespace NeoxNotify\NeoxtifyBundle\DependencyInjection;
+	namespace NeoxNotify\NeoxNotifyBundle\DependencyInjection;
 
 	use Exception;
     use Symfony\Component\Config\FileLocator;

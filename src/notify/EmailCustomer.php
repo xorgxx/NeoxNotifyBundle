@@ -4,7 +4,6 @@
     
     use finfo;
     use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-    use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
     use Symfony\Component\Notifier\Message\EmailMessage;
     use Symfony\Component\Notifier\Notification\EmailNotificationInterface;
     use Symfony\Component\Notifier\Notification\Notification;
@@ -13,14 +12,14 @@
     class EmailCustomer extends Notification implements EmailNotificationInterface
     {
         private NotificationStrategyAbstract $option;
-        private $neoxTemplate;
+        private array $neoxTemplate;
         
         
         /**
          * @param NotificationStrategyAbstract $option
-
+         * @param array                        $neoxTemplate
          */
-        public function __construct(NotificationStrategyAbstract $option, $neoxTemplate )
+        public function __construct(NotificationStrategyAbstract $option, array $neoxTemplate )
         {
             parent::__construct();
             $this->option = $option;

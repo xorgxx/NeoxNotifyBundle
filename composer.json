@@ -13,11 +13,19 @@
         "symfony/notifier": "6.3.*",
         "symfony/string": "6.3.*",
         "symfony/framework-bundle": "6.3.*",
-        "doctrine/annotations": "^2.0"
+        "symfony/mime": "6.3.*",
+        "doctrine/annotations": "^2.0",
+        "twig/cache-extra": "^3.5",
+        "twig/cssinliner-extra": "^v3.4.0",
+        "twig/extra-bundle": "^2.12|^3.0",
+        "twig/inky-extra": "^v3.4.0",
+        "twig/intl-extra": "^v3.4.0",
+        "twig/string-extra": "^3.4.0",
+        "twig/twig": "^2.12|^3.0"
     },
     "autoload": {
         "psr-4": {
-            "NeoxNotify\\NeoxtifyBundle\\": "src/"
+            "NeoxNotify\\NeoxNotifyBundle\\": "src/"
         }
     }
 }
