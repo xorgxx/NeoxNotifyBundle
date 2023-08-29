@@ -88,7 +88,15 @@ myController.php
             $emailStrategy->setNotification((new Notification($msg, ['browser'])));
             $emailStrategy->setRecipient(new NoRecipient());
             $notificationQueue->addNotification($emailStrategy);
-     
+              
+            // ========== 🔥🔥 ========== ** MERCURE ** ========== 🔥🔥 =============
+            $notification  = $this->notificationStrategyFactory->NotificationStrategy();
+            $msg           = "Flash-2 sales has been started ❤️😉";            
+            $notification->setNotification((new Notification($msg, ['chat/mercureChatter'])));
+            $notification->setRecipient(new NoRecipient());
+            $notificationQueue->addNotification($notification);
+            // put in Queue
+            $notificationQueue->addNotification($emailStrategy);
      
             // Send all notifications in the queue
             $notificationQueue->sendNotifications();
