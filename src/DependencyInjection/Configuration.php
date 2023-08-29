@@ -15,8 +15,8 @@
                 ->children()
                     ->arrayNode('template')->addDefaultsIfNotSet()
                         ->children()
-                            ->scalarNode('include')->defaultValue("template/Partial/")->end()
-                            ->scalarNode('emails')->defaultValue("template/Partial/Emails")->end()
+                            ->scalarNode('include')->defaultValue("Partial\Emails\Include")->end()
+                            ->scalarNode('emails')->defaultValue("Partial\Emails")->end()
                         ->end()
                     ->end() // template
                 ->end();
