@@ -108,7 +108,35 @@ myController.php
         }
 
 ```
+## How to use ADVANCE 🎉 ?
+```php
+myController.php
+<?php
+....
+    use NeoxNotify\NeoxNotifyBundle\notify\NotificationStrategyFactory;
+    use NeoxNotify\NeoxNotifyBundle\notify\notificationQueue;
+....
 
+        #[Route('/{id}/send', name: 'app_admin_tokyo_crud_send', methods: ['GET'])]
+        public function send( Request $request, Tokyo $tokyo, NotificationStrategyFactory $notificationStrategyFactory): Response
+        {
+                        
+            // Create listing Queue
+            $notificationQueue  = new NotificationQueue();
+            
+            // ====================== STANDARD NOTIFICATION -> BROWSER =================
+            $emailStrategy  = $notificationStrategyFactory->createNotificationStrategy();
+            $msg            = "This is test to try ....";
+            $emailStrategy->setNotification((new advance($msg, ['browser'])));   <---------- HERE Advance*
+            $emailStrategy->setRecipient(new NoRecipient());
+            // put in Queue
+            $notificationQueue->addNotification($emailStrategy);
+     
+            // Send all notifications in the queue
+            $notificationQueue->sendNotifications();
+        }
+```
+*ADVANCE you can create class with your full logic !! as you will do normally with NotificationBundle. it have to return Notification.
 
 ## Contributing
 If you want to contribute \(thank you!\) to this bundle, here are some guidelines:

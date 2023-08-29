@@ -22,8 +22,8 @@
         public function __construct(NotificationStrategyAbstract $option, array $neoxTemplate )
         {
             parent::__construct();
-            $this->option = $option;
-            $this->neoxTemplate = $neoxTemplate;
+            $this->option           = $option;
+            $this->neoxTemplate     = $neoxTemplate;
         }
         
         public function asEmailMessage(EmailRecipientInterface $recipient, string $transport = null): ?EmailMessage
