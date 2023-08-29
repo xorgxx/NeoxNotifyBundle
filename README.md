@@ -5,7 +5,7 @@ Be aware that there is no testing code !
 
 [![2023-08-28-15-43-05.png](https://i.postimg.cc/Njz9rBC5/2023-08-28-15-43-05.png)](https://postimg.cc/3k2Js5TT)
 
-## Installation BETA VERSION !!
+## Installation !!
 Install the bundle for Composer !! as is still on beta version !!
 
 ````
@@ -44,8 +44,6 @@ it at this time we ded not optimize all !!
 |               └─── include      <--- this to store the base template
 |               └─── template     <--- to store Template
 ```
-Configuration except that you have install stimulus/turbo-ux and setup correctly !!
-Base css on Bootstrap 5 so if you have install on your project all css and js from Bs5 going to be applique.
 
 ## How to use ?
 ```php
