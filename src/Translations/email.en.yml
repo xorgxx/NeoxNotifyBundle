@@ -1,0 +1,45 @@
+# src/Acme/DemoBundle/Resources/translations/messages.fr.yml
+email:
+    home:
+        titre: Emailer/email
+        sub-titre: Interface
+    setup-tool:
+        titre: Menu
+    form:
+        recipient:
+            label: Recipient
+            placeholder: Recipient email
+        sender:
+            label: Your email
+            placeholder: Your email
+        name:
+            label: Your name
+            placeholder: Your name
+        subject:
+            label: Subject
+            placeholder: Subject (max 255)
+        message:
+            label: Message
+            placeholder: Enter your message here ...
+    button:
+        send: Send the message
+    msg:
+        replie: <em>** We will do our best to respond to you within 24 business hours.</em>
+        title: Contact form
+        text: Sending message in progress ...
+        confirmButtonText: Send
+        titleEr: Message not sent 😢
+        titleVa: Message sent 🛫
+        registration:
+            title: 'Hello! Please confirm your email!'
+            clicking: 'Please confirm your email address by clicking on the following link:'
+            email: 'Confirm my email'
+            link: 'This link will expire in'
+    ux:
+        title: Contact form ...
+        text: ...
+        confirmButtonText: Send
+        denyButton:
+        cancelButtonText: Close
+#        subTitle: Géolocalisation encours de traitement ....
+#        subHtml: Fermeture dans \<b\>\<\/b\> milliseconds.

@@ -1,0 +1,45 @@
+# src/Acme/DemoBundle/Resources/translations/messages.fr.yml
+email:
+    home:
+        titre: E-Mailer/email
+        sub-titre: Grenzschicht
+    setup-tool:
+        titre: Menü
+    form:
+        recipient:
+            label: Empfänger
+            placeholder: Empfänger E-Mail
+        sender:
+            label: Deine E-Mail
+            placeholder: Deine E-Mail
+        name:
+            label: Ihren Namen
+            placeholder: Ihren Namen
+        subject:
+            label: Subjekt
+            placeholder: Subjekt (max 255)
+        message:
+            label: Aussage
+            placeholder: Geben Sie hier Ihre Nachricht ein ...
+    button:
+        send: Senden Sie die Nachricht
+    msg:
+        replie: <em>** Wir werden unser Bestes tun, um Ihnen innerhalb von 24 Geschäftsstunden zu antworten.</em>
+        title: Kontakt Formular
+        text: Nachricht wird gesendet ...
+        confirmButtonText: Senden
+        titleEr: Nachricht nicht gesendet 😢
+        titleVa: Nachricht gesendet 🛫
+        registration:
+            title: 'Hallo! Bitte bestätige deine Email!'
+            clicking: 'Bitte bestätigen Sie Ihre E-Mail-Adresse, indem Sie auf den folgenden Link klicken:'
+            email: 'Bestätigen Sie meine E-Mail'
+            link: 'Dieser Link läuft ab in'
+    ux:
+        title: Kontakt Formular ...
+        text: ...
+        confirmButtonText: Senden
+        denyButton:
+        cancelButtonText: schließen
+#        subTitle: Géolocalisation encours de traitement ....
+#        subHtml: Fermeture dans \<b\>\<\/b\> milliseconds.
