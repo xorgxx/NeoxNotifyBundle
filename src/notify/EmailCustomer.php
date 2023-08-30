@@ -53,11 +53,14 @@
              * set if attach files
              * return mime type ala mimetype extension
              **/
-            $fInfo = new finfo(FILEINFO_MIME);
-            foreach ( $option->getAttachments() as $key => $attach ) {
-                $mineType   = $fInfo->file($attach);
-                $email->attach(file_get_contents($attach), $key,$mineType);
-            }
+            $fInfo      = new finfo(FILEINFO_MIME);     // Create a new finfo object with FILEINFO_MIME flag
+            $attachs    = $option->getAttachments();        // Get the attachments from the $option object
+            
+            // Iterate through the attachments recursively (optimize for good)
+            array_walk_recursive($attachs, function ($value, $key) use ($email, $fInfo) {
+                $email->attach(file_get_contents($value), $key, $fInfo->file($value)); // Attach the file to the email
+            });
+            
             return $message;
         }
         
