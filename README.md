@@ -34,7 +34,7 @@ return [
 it at this time we ded not optimize all !!
 
 ## Configuration
-* Install and configure  [Symfony notifier](https://symfony.com/doc/current/notifier.html#installation)
+* Install and configure  ==> [Symfony notifier](https://symfony.com/doc/current/notifier.html#installation)
 * Creat folder for template 
 ```
 └─── src
@@ -138,6 +138,8 @@ myController.php
 ```
 *ADVANCE you can create class with your full logic !! as you will do normally with NotificationBundle. it have to return Notification.
 
+
+
 ## Contributing
 If you want to contribute \(thank you!\) to this bundle, here are some guidelines:
 
@@ -148,6 +150,6 @@ If you want to contribute \(thank you!\) to this bundle, here are some guideline
     * You see code that works but isn't covered by any tests \(there is a special place in heaven for you\)
 
 ## Todo
-* Packagist
+* !!!
 
 ## Thanks

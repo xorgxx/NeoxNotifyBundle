@@ -57,6 +57,15 @@
             $this->parameterBag         = $parameterBag;
             $this->neoxTemplate         = $neoxTemplate;
         }
+        
+        /**
+         * Not really good option !! maybe TODO ?
+         * public static function create(NotifierInterface $notifier, ParameterBagInterface $parameterBag, mixed $neoxTemplate): self
+         * {
+         *    return new self($notifier, $parameterBag, $neoxTemplate);
+         * }
+         * */
+        
         public function EmailStrategy(): EmailNotificationStrategy
         {
             return new EmailNotificationStrategy($this->notifier, $this->parameterBag, $this->neoxTemplate );
