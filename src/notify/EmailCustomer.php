@@ -58,7 +58,6 @@
                 $mineType   = $fInfo->file($attach);
                 $email->attach(file_get_contents($attach), $key,$mineType);
             }
-            
             return $message;
         }
         

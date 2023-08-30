@@ -82,9 +82,17 @@
             return $this->attachments;
         }
         
-        public function setAttachments(?string $attachments): void
+        public function setAttachment(?string $attachments): void
         {
             $this->attachments[] = $attachments;
+        }
+        
+        public function setAttachments(?array $attachments): void
+        {
+            if ($attachments) {
+                $this->attachments[] = $attachments;
+            }
+            
         }
         
         public function getTemplate(): ?string
