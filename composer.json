@@ -15,6 +15,8 @@
         "symfony/framework-bundle": "6.3.*",
         "symfony/validator": "6.3.*",
         "symfony/form": "6.3.*",
+        "symfony/messenger": "6.3",
+        "symfony/mailer": "6.3",
         "symfony/mime": "6.3.*",
         "doctrine/annotations": "^2.0",
         "twig/cache-extra": "^3.5",

@@ -76,8 +76,8 @@ class NotifierSubscriber implements EventSubscriberInterface
             // create Messenger
             $messenger  = new Messenger();
             $messenger->setMessengerId($emailContext["neox_uniqId"]);
-            $messenger->setRecipient($emailContext["recipient"]);
-            $messenger->setSender($emailContext["sender"]);
+            $messenger->setRecipient($emailContext["neox_recipient"]);
+            $messenger->setSender($emailContext["neox_sender"]);
             $messenger->setData($Html);
             $messenger->setChannel(["email"]);
             $messenger->setService("email");

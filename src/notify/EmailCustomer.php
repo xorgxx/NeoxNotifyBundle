@@ -35,6 +35,7 @@
              *
              * @var TemplatedEmail $email
              * markAsPublic() take all annotation symfony.
+             * !!! neox_[xxxx] SETTING FOR TWIG PREFIX !!!  >> $option->setContext
              */
       
             $email = $message->getMessage()->markAsPublic();
