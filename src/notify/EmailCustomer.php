@@ -30,16 +30,16 @@
         {
             $option     = $this->option;
             $message    = EmailMessage::fromNotification( $this, $recipient, $transport );
+            
             /**
              * custom Email - as emailMessage
              *
              * @var TemplatedEmail $email
-             * markAsPublic() take all annotation symfony.
-             * !!! neox_[xxxx] SETTING FOR TWIG PREFIX !!!  >> $option->setContext
+             *  markAsPublic() take all annotation symfony.
+             *  !!! neox_[xxxx] SETTING FOR TWIG PREFIX !!!  >> $option->setContext
+             *  try to fund way to be able to have custom path to template
+             *  $option->getTemplate() == "default" ; null ; "xxxx/xxxxx/default.html.twig"
              */
-            
-            // try to fund way to be able to have custom path to template
-            // $option->getTemplate() == "default" ; null ; "xxxx/xxxxx/default.html.twig"
             $value      = $option->getTemplate();
             $Template   = match (true) {
                 str_contains($value, '/') => $value,
