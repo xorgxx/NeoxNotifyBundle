@@ -12,6 +12,7 @@
             $treeBuilder    = new TreeBuilder('neox_notify');
             $rootNode       = $treeBuilder->getRootNode();
             $rootNode
+                ->addDefaultsIfNotSet()
                 ->children()
                     ->arrayNode('template')->addDefaultsIfNotSet()
                         ->children()
@@ -19,6 +20,8 @@
                             ->scalarNode('emails')->defaultValue("Partial\Emails")->end()
                         ->end()
                     ->end() // template
+                 
+                    ->booleanNode('save_notify')->defaultTrue()->end()
                 ->end();
             
             return $treeBuilder;

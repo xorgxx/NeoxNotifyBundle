@@ -44,7 +44,15 @@ it at this time we ded not optimize all !!
 |               └─── include      <--- this to store the base template
 |               └─── template     <--- to store Template
 ```
-
+## neox_notify.yaml
+It set automatique but you can custom
+```
+  neox_notify:
+    template: ~
+        include: Partial\include\fdgdgdf
+        emails: Partial\emails\
+    save_notify: true # by default true mean all notification send will be save in Db messenger
+```
 ## How to use ?
 ```php
 myController.php
@@ -108,6 +116,7 @@ myController.php
         }
 
 ```
+
 ## By aware !!
 All variable you pass in twig going to be set with prefix ["neox_"] this option we choose to avoid conflicts in the template
 ```php
