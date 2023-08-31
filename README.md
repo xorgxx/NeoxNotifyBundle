@@ -108,6 +108,24 @@ myController.php
         }
 
 ```
+## By aware !!
+All variable you pass in twig going to be set with prefix ["neox_"] this option we choose to avoid conflicts in the template
+```php
+        $key    = "name"
+        $value  = "trying for conflicts avoid"
+          public function setContext($key, $value): void
+        {
+            // Add a prefix to the key to avoid conflicts in the template
+            $prefixedKey = "neox_" . $key;
+            
+            // Set the value in the context array
+            $this->context[$prefixedKey] = $value;
+        }
+        
+        <p style="line-height: 100%; font-size: 18px;"><em><strong>{{ "-----" ~ neox_name|default("Message interne") ~ "-----"}}</strong></em></p>
+```
+
+
 ## How to use ADVANCE 🎉 ?
 ```php
 myController.php
