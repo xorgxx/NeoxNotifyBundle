@@ -112,7 +112,11 @@
         
         public function setContext($key, $value): void
         {
-            $this->context[$key] = $value;
+            // Add a prefix to the key to avoid conflicts in the template
+            $prefixedKey = "neox_" . $key;
+            
+            // Set the value in the context array
+            $this->context[$prefixedKey] = $value;
         }
         
         public function getNotification(): ?Notification
