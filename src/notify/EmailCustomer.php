@@ -40,8 +40,8 @@
             
             // try to fund way to be able to have custom path to template
             // $option->getTemplate() == "default" ; null ; "xxxx/xxxxx/default.html.twig"
-            $value = $option->getTemplate();
-            $Template = match (true) {
+            $value      = $option->getTemplate();
+            $Template   = match (true) {
                 str_contains($value, '/') => $value,
                 default => $this->neoxTemplate['emails'] . "/" . ($option->getTemplate() ? : 'default'). '.html.twig',
             };
