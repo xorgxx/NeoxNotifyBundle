@@ -53,6 +53,21 @@ It set automatique but you can custom
         emails: Partial\emails\
     save_notify: true # by default true mean all notification send will be save in Db messenger
 ```
+
+it's away possible to custom path twig template to render !
+
+```
+  as you can see in code if you setTemplate() to what eve "xxx/xxxx/xxx.tmh.twig it will set.
+  
+  // try to fund way to be able to have custom path to template
+  // $option->getTemplate() == "default" ; null ; "xxxx/xxxxx/default.html.twig"
+  $value = $option->getTemplate();
+  $Template = match (true) {
+    str_contains($value, '/') => $value, 
+    default => $this->neoxTemplate['emails'] . "/" . ($option->getTemplate() ? : 'default'). '.html.twig',
+  };
+```
+
 ## How to use ?
 ```php
 myController.php

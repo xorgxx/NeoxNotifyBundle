@@ -37,9 +37,17 @@
              * markAsPublic() take all annotation symfony.
              * !!! neox_[xxxx] SETTING FOR TWIG PREFIX !!!  >> $option->setContext
              */
-      
+            
+            // try to fund way to be able to have custom path to template
+            // $option->getTemplate() == "default" ; null ; "xxxx/xxxxx/default.html.twig"
+            $value = $option->getTemplate();
+            $Template = match (true) {
+                str_contains($value, '/') => $value,
+                default => $this->neoxTemplate['emails'] . "/" . ($option->getTemplate() ? : 'default'). '.html.twig',
+            };
+            
             $email = $message->getMessage()->markAsPublic();
-            $email->htmlTemplate( $this->neoxTemplate['emails'] . "/" . ($option->getTemplate() ? : 'default'). '.html.twig' );
+            $email->htmlTemplate( $Template );
             $option->setContext("subject",$option->getSubject());
             $option->setContext("content",$option->getContent());
             
