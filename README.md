@@ -51,7 +51,8 @@ It set automatique but you can custom
     template: ~
         include: Partial\include\fdgdgdf
         emails: Partial\emails\
-    save_notify: true # by default true mean all notification send will be save in Db messenger
+    save_notify: true # by default true mean all notification send will be save in Db messenger. 
+    it will give error in Db data. it will also in monolog as log ERROR.
 ```
 
 it's away possible to custom path twig template to render !
@@ -131,7 +132,8 @@ myController.php
         }
 
 ```
-
+## How to use ?
+Now is you set save
 ## By aware !!
 All variable you pass in twig going to be set with prefix ["neox_"] this option we choose to avoid conflicts in the template
 ```php
