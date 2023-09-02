@@ -1,6 +1,6 @@
 <?php
     
-    namespace App\EventSubscriber;
+    namespace NeoxNotify\NeoxNotifyBundle\EventSubscriber;
     
     //use App\Entity\Messenger;
 //use App\Repository\MessengerRepository;
