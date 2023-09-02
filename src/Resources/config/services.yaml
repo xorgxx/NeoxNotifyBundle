@@ -33,6 +33,11 @@ services:
         tags: ['doctrine.repository_service']
         arguments:
             - '@Doctrine\Persistence\ManagerRegistry'
+            -
+    NeoxNotify\NeoxNotifyBundle\EventSubscriber\NotifierSubscriber:
+        tags:
+            - { name: kernel.event_subscriber }
+            
 #    NeoxNotify\NeoxNotifyBundle\notify\EmailNotificationStrategy:
 #
 #        arguments:
