@@ -3,7 +3,7 @@
     namespace NeoxNotify\NeoxNotifyBundle\EventSubscriber;
     
     //use App\Entity\Messenger;
-//use App\Repository\MessengerRepository;
+    //use App\Repository\MessengerRepository;
     use NeoxNotify\NeoxNotifyBundle\Repository\MessengerRepository;
     use NeoxNotify\NeoxNotifyBundle\Entity\Messenger;
     use Psr\Log\LoggerInterface;
@@ -34,8 +34,8 @@
         public function onMessageEvent(WorkerMessageHandledEvent $event): void
         {
             // gets the message instance
-            $message = $event->getEnvelope()->getMessage();
-            $result = match (true) {
+            $message    = $event->getEnvelope()->getMessage();
+            $result     = match (true) {
                 $message instanceof SendEmailMessage => $this->handleSendEmailMessage($message, $event),
                 $message instanceof EmailMessage => "dede",
                 default => "Message type not recognized",
@@ -45,8 +45,8 @@
         public function onFailedMessageEvent(WorkerMessageFailedEvent $event): void
         {
             // gets the message instance
-            $message = $event->getEnvelope()->getMessage();
-            $result = match (true) {
+            $message    = $event->getEnvelope()->getMessage();
+            $result     = match (true) {
                 $message instanceof SendEmailMessage => $this->handleFaileEmailMessage($message, $event),
                 $message instanceof EmailMessage => "dede",
                 default => "Message type not recognized",
@@ -79,9 +79,16 @@
             // Récupérer le contenu de l'email
             /** @var TemplatedEmail $email */
             $email          = $message->getMessage();
-            $emailContext   = $email->getContext();
             $Html           = $event->getEnvelope()->last("Symfony\Component\Messenger\Stamp\HandledStamp")->getResult()->getOriginalMessage()->toString();
             
+            try {
+                $emailContext   = $email->getContext();
+            } catch (Exception $e) {
+                $emailContext["neox_uniqId"]        = uniqid('neox_');
+                $emailContext["neox_recipient"]     = "system";
+                $emailContext["neox_sender"]        = "system";
+                
+            }
             // check if existe in Db by uniqID
             if (!$this->messengerRepository->findOneBy(["messengerId"=>$emailContext["neox_uniqId"]])) {
                 $this->setInDb($emailContext, $Html);
@@ -102,7 +109,15 @@
             /** @var TemplatedEmail $email */
             $email          = $message->getMessage();
             $faileMessage   = $event->getEnvelope()->last("Symfony\Component\Messenger\Stamp\ErrorDetailsStamp")->getExceptionMessage();
-            $emailContext   = $email->getContext();
+            
+            try {
+                $emailContext   = $email->getContext();
+            } catch (Exception $e) {
+                $emailContext["neox_uniqId"]        = uniqid('neox_fail_');
+                $emailContext["neox_recipient"]     = "system";
+                $emailContext["neox_sender"]        = "system";
+                
+            }
 //        $faileMessage   = (string) $event->getThrowable()->getMessage();
             
             // check if existe in Db by uniqID
