@@ -111,14 +111,25 @@
             $email          = $message->getMessage();
             $faileMessage   = $event->getEnvelope()->last("Symfony\Component\Messenger\Stamp\ErrorDetailsStamp")->getExceptionMessage();
             
-            try {
-                $emailContext   = $email->getContext();
-            } catch (Exception $e) {
-                $emailContext["neox_uniqId"]        = uniqid('neox_fail_');
-                $emailContext["neox_recipient"]     = "system";
-                $emailContext["neox_sender"]        = "system";
-                
+            if (method_exists($email, 'getContext')) {
+                // La méthode getContext() existe dans l'objet $email
+                $emailContext = $email->getContext();
+            } else {
+                // La méthode getContext() n'existe pas dans l'objet $email
+                $emailContext = [
+                    "neox_uniqId"    => uniqid('neox_'),
+                    "neox_recipient" => "system",
+                    "neox_sender"    => "system",
+                ];
             }
+//            try {
+//                $emailContext   = $email->getContext();
+//            } catch (Exception $e) {
+//                $emailContext["neox_uniqId"]        = uniqid('neox_fail_');
+//                $emailContext["neox_recipient"]     = "system";
+//                $emailContext["neox_sender"]        = "system";
+//
+//            }
 //        $faileMessage   = (string) $event->getThrowable()->getMessage();
             
             // check if existe in Db by uniqID
