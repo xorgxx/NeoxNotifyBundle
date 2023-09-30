@@ -4,6 +4,7 @@
     
     //use App\Entity\Messenger;
     //use App\Repository\MessengerRepository;
+    use Exception;
     use NeoxNotify\NeoxNotifyBundle\Repository\MessengerRepository;
     use NeoxNotify\NeoxNotifyBundle\Entity\Messenger;
     use Psr\Log\LoggerInterface;
