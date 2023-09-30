@@ -115,6 +115,7 @@
                 // La méthode getContext() existe dans l'objet $email
                 $emailContext = $email->getContext();
             } else {
+                
                 // La méthode getContext() n'existe pas dans l'objet $email
                 $emailContext = [
                     "neox_uniqId"    => uniqid('neox_'),
