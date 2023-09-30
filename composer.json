@@ -24,7 +24,8 @@
         "twig/inky-extra": "^v3.4.0",
         "twig/intl-extra": "^v3.4.0",
         "twig/string-extra": "^3.4.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^2.12|^3.0",
+        "symfony/messenger": "6.3.4"
     },
     "autoload": {
         "psr-4": {

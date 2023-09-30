@@ -32,9 +32,6 @@
             // set by default sender & recipient to admin web site address
             $this->setSender(new Recipient($this->parameterBag->get("email-service"), $this->parameterBag->get("sms-service")));
             $this->setRecipient(new Recipient($this->parameterBag->get("email-service"), $this->parameterBag->get("sms-service")));
-            
-            
-            
         }
         
         /**
