@@ -14,6 +14,7 @@
     use Symfony\Component\Messenger\Event\WorkerMessageFailedEvent;
     use Symfony\Component\Messenger\Event\WorkerMessageHandledEvent;
     use Symfony\Component\Messenger\Event\WorkerMessageReceivedEvent;
+    use Symfony\Component\Mime\Email;
     use Symfony\Component\Notifier\Message\EmailMessage;
     
     
@@ -144,7 +145,7 @@
          *
          * @return array
          */
-        public function setContext(TemplatedEmail $email): array
+        public function setContext(Email $email): array
         {
             if (method_exists($email, 'getContext')) {
                 // La méthode getContext() existe dans l'objet $email
