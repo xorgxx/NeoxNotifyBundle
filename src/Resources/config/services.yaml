@@ -37,7 +37,10 @@ services:
     NeoxNotify\NeoxNotifyBundle\EventSubscriber\NotifierSubscriber:
         tags:
             - { name: kernel.event_subscriber }
-            
+    
+    NeoxNotify\NeoxNotifyBundle\Transport\SmsPartnerTransportFactory:
+        tags: [ messenger.transport_factory ]
+        
 #    NeoxNotify\NeoxNotifyBundle\notify\EmailNotificationStrategy:
 #
 #        arguments:
