@@ -26,8 +26,15 @@ return [
 ];
 ```
 ## news 
-* Add transport configuration for service | Partner [Sms Partner](https://www.smspartner.fr)
-
+* Add transport configuration automatique for service provide by (not free) | Partner [Sms Partner](https://www.smspartner.fr)
+```
+.env
+    .....
+      ###> smspartner/SMS ###
+      SMSPARTNER_DSN=smspartner://API-KEY:SECRET@api.smspartner.fr/v1/send?from=xxxx&dns=smspartner
+      ###> smspartner/SMS ###  
+    .....
+```
 
   **NOTE:** _You may need to use [ symfony composer dump-autoload ] to reload autoloading_
 
