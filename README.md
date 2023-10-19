@@ -25,8 +25,11 @@ return [
     .....
 ];
 ```
+## news 
+* Add transport configuration for service | Partner [Sms Partner](https://www.smspartner.fr)
 
-**NOTE:** _You may need to use [ symfony composer dump-autoload ] to reload autoloading_
+
+  **NOTE:** _You may need to use [ symfony composer dump-autoload ] to reload autoloading_
 
  ..... Done 🎈
 
