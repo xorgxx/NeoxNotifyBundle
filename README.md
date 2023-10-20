@@ -27,6 +27,7 @@ return [
 ```
 ## news 
 * Add transport configuration automatique for service provide by (not free) | Partner [Sms Partner](https://www.smspartner.fr)
+* Add reporting send SMS as emailSend in dataBase + in add in symfony logger if it failed
 ```
 .env
     .....

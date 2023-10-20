@@ -16,7 +16,7 @@
     use Symfony\Component\Messenger\Event\WorkerMessageReceivedEvent;
     use Symfony\Component\Mime\Email;
     use Symfony\Component\Notifier\Message\EmailMessage;
-    
+    use Symfony\Component\Notifier\Message\SmsMessage;
     
     
     class NotifierSubscriber implements EventSubscriberInterface
@@ -38,8 +38,9 @@
             // gets the message instance
             $message    = $event->getEnvelope()->getMessage();
             $result     = match (true) {
-                $message instanceof SendEmailMessage => $this->handleSendEmailMessage($message, $event),
-                $message instanceof EmailMessage => "dede",
+                $message instanceof SendEmailMessage    => $this->handleSendEmailMessage($message, $event),
+                $message instanceof EmailMessage        => "dede",
+                $message instanceof SmsMessage          => $this->handleSendSmsMessage($message, $event),
                 default => "Message type not recognized",
             };
         }
@@ -49,8 +50,9 @@
             // gets the message instance
             $message    = $event->getEnvelope()->getMessage();
             $result     = match (true) {
-                $message instanceof SendEmailMessage => $this->handleFaileEmailMessage($message, $event),
-                $message instanceof EmailMessage => "dede",
+                $message instanceof SendEmailMessage    => $this->handleFaileEmailMessage($message, $event),
+                $message instanceof EmailMessage        => "dede",
+                $message instanceof SmsMessage          => $this->handleFaileSmsMessage($message, $event),
                 default => "Message type not recognized",
             };
         }
@@ -68,6 +70,51 @@
                 WorkerMessageReceivedEvent::class   => 'onSentMessageEvent',
 //            SentMessageEvent::class             => 'onSentMessageEvent',
             ];
+        }
+        
+        /**
+         * @param SmsMessage          $message
+         * @param WorkerMessageHandledEvent $event
+         *
+         * @return bool
+         */
+        private function handleSendSmsMessage(SmsMessage $message, WorkerMessageHandledEvent $event): bool
+        {
+            // Récupérer le contenu de l'email
+            /** @var SmsMessage $sms */
+            $sms                = $message->getSubject();
+            $messageContext     = $this->setContext($message);
+            
+            // check if existe in Db by uniqID
+            if (!$this->messengerRepository->findOneBy(["messengerId"=>$messageContext["neox_uniqId"]])) {
+                $this->setInDb($messageContext, $sms, type:"sms");
+            }
+            
+            
+            return true;
+        }
+        
+        /**
+         * @param SmsMessage                $message
+         * @param WorkerMessageFailedEvent  $event
+         *
+         * @return bool
+         */
+        private function handleFaileSmsMessage(SmsMessage $message, WorkerMessageFailedEvent $event): bool
+        {
+            // Récupérer le contenu du sms
+            /** @var SmsMessage $sms */
+            $sms                = $message->getSubject();
+            $messageContext     = $this->setContext($message);
+            
+            // check if existe in Db by uniqID
+            if (!$this->messengerRepository->findOneBy(["messengerId"=>$messageContext["neox_uniqId"]])) {
+                $this->setInDb($messageContext, $sms, status: "faile");
+                // logger in to error
+                $this->logger->error("Messenger error uniqId: " . $messageContext['neox_uniqId'] . " message error : Send sms !!" );
+            }
+            
+            return true;
         }
         
         /**
@@ -141,21 +188,22 @@
         }
         
         /**
-         * @param TemplatedEmail $email
+         * @param TemplatedEmail | SmsMessage $message
          *
          * @return array
          */
-        public function setContext(Email $email): array
+        public function setContext( TemplatedEmail|SmsMessage $message): array
         {
-            if (method_exists($email, 'getContext')) {
+            if (method_exists($message, 'getContext')) {
                 // La méthode getContext() existe dans l'objet $email
-                $emailContext = $email->getContext();
+                $messageContext = $message->getContext();
             } else {
+                
                 // La méthode getContext() n'existe pas dans l'objet $email
-                $emailContext = [
-                    "neox_uniqId" => uniqid('neox_'),
-                    "neox_recipient" => "system",
-                    "neox_sender" => "system",
+                $messageContext = [
+                    "neox_uniqId"       => uniqid('neox_', true),
+                    "neox_recipient"    => $message instanceof SmsMessage ? $message->getPhone() : "system",
+                    "neox_sender"       => $message instanceof SmsMessage ? $message->getFrom() : "system",
                 ];
             }
             
@@ -167,6 +215,6 @@
 //                $emailContext["neox_sender"]        = "system";
 //
 //            }
-            return $emailContext;
+            return $messageContext;
         }
     }
