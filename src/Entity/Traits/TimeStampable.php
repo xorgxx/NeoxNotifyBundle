@@ -2,14 +2,15 @@
 
     namespace NeoxNotify\NeoxNotifyBundle\Entity\Traits;
 
+    use Doctrine\DBAL\Types\Types;
     use Doctrine\ORM\Mapping as ORM;
 
     trait TimeStampable
     {
-        #[ORM\Column]
+        #[ORM\Column(type: Types::DATETIME_MUTABLE, precision:10)]
         private ?\DateTimeImmutable $createdAt = null;
-
-        #[ORM\Column]
+        
+        #[ORM\Column(type: Types::DATETIME_MUTABLE, precision:10)]
         private ?\DateTimeImmutable $updatedAt = null;
 
         public function getCreatedAt(): ?\DateTimeImmutable
