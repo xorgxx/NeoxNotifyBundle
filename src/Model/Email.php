@@ -26,11 +26,11 @@ class Email
     protected string $senderName;
 
     #[Assert\NotBlank(message: 'email.sender.NotBlank')]
-    #[Assert\Length(min: 6, max: 250, minMessage: 'email.sender.Length.minMessage', maxMessage: 'email.sender.Length.maxMessage')]
+    #[Assert\Length(min: 8, max: 250, minMessage: 'email.sender.Length.minMessage', maxMessage: 'email.sender.Length.maxMessage')]
     protected string $sender;
 
     #[Assert\NotBlank(message: 'email.message.NotBlank')]
-    #[Assert\Length(min: 10, max: 1500, minMessage: 'email.message.Length.minMessage', maxMessage: 'email.message.Length.maxMessage')]
+    #[Assert\Length(min: 50, max: 1500, minMessage: 'email.message.Length.minMessage', maxMessage: 'email.message.Length.maxMessage')]
     protected string $message;
     
     public function getSubject(): string
