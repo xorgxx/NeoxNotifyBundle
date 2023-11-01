@@ -192,7 +192,7 @@
          *
          * @return array
          */
-        public function setContext( TemplatedEmail|SmsMessage $message): array
+        public function setContext( TemplatedEmail|SmsMessage|Email  $message): array
         {
             if (method_exists($message, 'getContext')) {
                 // La méthode getContext() existe dans l'objet $email
