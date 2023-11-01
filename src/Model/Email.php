@@ -30,7 +30,7 @@ class Email
     protected string $sender;
 
     #[Assert\NotBlank(message: 'email.message.NotBlank')]
-    #[Assert\Length(min: 50, max: 1500, minMessage: 'email.message.Length.minMessage', maxMessage: 'email.message.Length.maxMessage')]
+    #[Assert\Length(min: 100, max: 1500, minMessage: 'email.message.Length.minMessage', maxMessage: 'email.message.Length.maxMessage')]
     protected string $message;
     
     public function getSubject(): string
