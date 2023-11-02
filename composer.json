@@ -16,6 +16,7 @@
         "symfony/validator": "6.3.*",
         "symfony/form": "6.3.*",
         "symfony/mailer": "6.3",
+        "symfony/mercure-bundle": "^0.3.6",
         "symfony/mime": "6.3.*",
         "doctrine/annotations": "^2.0",
         "twig/cache-extra": "^3.5",

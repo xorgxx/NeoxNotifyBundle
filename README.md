@@ -187,6 +187,15 @@ myController.php
             // put in Queue
             $notificationQueue->addNotification($emailStrategy);
      
+     
+            // ====================== MERCURE NOTIFICATION -> WSS =================
+            $mercureStrategy       = $notificationStrategyFactory->MercureStrategy();
+            $mercureStrategy->setNotification( new Update(
+                '/my/topic/1',
+                json_encode(['data' => "Flash-MERCURE sales has been started ❤️😉"], JSON_THROW_ON_ERROR)
+            ));
+            $notificationQueue->addNotification($mercureStrategy);
+            
             // Send all notifications in the queue
             $notificationQueue->sendNotifications();
         }
