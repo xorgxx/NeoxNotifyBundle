@@ -47,41 +47,43 @@
      *
      */
     
-    class MercureStrategyAbstract
+    abstract class MercureStrategyAbstract
     {
-        private NotifierInterface       $notifier;
-        private ParameterBagInterface   $parameterBag;
-        private mixed $neoxTemplate;
         protected HubInterface|null            $hubNotifierInterface;
+        private ?Update $notification;
         
-        public function __construct( NotifierInterface $notifier, ParameterBagInterface $parameterBag, mixed $neoxTemplate, ?HubInterface $hubNotifierInterface)
+        public function __construct( HubInterface $hubNotifierInterface)
         {
             $this->hubNotifierInterface = $hubNotifierInterface;
-            $this->notifier             = $notifier;
-            $this->parameterBag         = $parameterBag;
-            $this->neoxTemplate         = $neoxTemplate;
         }
         
         /**
-         * Not really good option !! maybe TODO ?
-         * public static function create(NotifierInterface $notifier, ParameterBagInterface $parameterBag, mixed $neoxTemplate): self
-         * {
-         *    return new self($notifier, $parameterBag, $neoxTemplate);
-         * }
-         * */
+         * @var NotificationQueue
+         * Can be use be static BUt dont like this way !!!
+         */
+        protected static NotificationQueue $notificationQueue;
         
-        public function EmailStrategy(): EmailNotificationStrategy
+        public static function setNotificationQueue(NotificationQueue $notificationQueue): void
         {
-            return new EmailNotificationStrategy($this->notifier, $this->parameterBag, $this->neoxTemplate );
+            static::$notificationQueue = $notificationQueue;
         }
         
-        public function NotificationStrategy(): NotificationStrategy
+        public function addToQueue(): void
         {
-            return new NotificationStrategy($this->notifier, $this->parameterBag, null );
+            if (static::$notificationQueue) {
+                static::$notificationQueue->addNotification($this);
+            }
         }
         
-        public function MercureStrategy(): MercureNotificationStrategy
+        abstract public function sendNotification(): void;
+        
+        public function getNotification(): ?Update
         {
-            return new MercureNotificationStrategy( $this->hubNotifierInterface );
+            return $this->notification;
+        }
+        
+        public function setNotification(?Update $notification): void
+        {
+            $this->notification = $notification;
         }
     }

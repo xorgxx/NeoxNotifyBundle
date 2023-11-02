@@ -79,8 +79,8 @@
             return new NotificationStrategy($this->notifier, $this->parameterBag);
         }
         
-        public function MercureStrategy(): MercureNotificationStrategy
+        public function MercureStrategy(): MercureStrategy
         {
-            return new MercureNotificationStrategy($this->hub);
+            return new MercureStrategy($this->hub);
         }
     }
