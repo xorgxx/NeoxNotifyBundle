@@ -8,7 +8,12 @@
         public function sendNotification(): void
         {
             $update = $this->getNotification();
+            
             // send
-            $this->hubNotifierInterface->publish($update);
+            if ( $this->getAsync() ) {
+                $this->messageBus->dispatch($update);
+            }else {
+                $this->hubNotifierInterface->publish($update);
+            }
         }
     }

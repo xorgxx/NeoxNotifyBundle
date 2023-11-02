@@ -2,9 +2,11 @@
     
     namespace NeoxNotify\NeoxNotifyBundle\notify;
     
-//    use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+    //    use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
     use Symfony\Component\Mercure\HubInterface;
     use Symfony\Component\Mercure\Update;
+    use Symfony\Component\Messenger\MessageBusInterface;
+
 //    use Symfony\Component\Notifier\NotifierInterface;
     
     /**
@@ -50,11 +52,13 @@
     abstract class MercureStrategyAbstract
     {
         protected HubInterface|null            $hubNotifierInterface;
+        protected MessageBusInterface|null     $messageBus;
         private ?Update $notification;
         
-        public function __construct( HubInterface $hubNotifierInterface)
+        public function __construct( HubInterface $hubNotifierInterface, MessageBusInterface $messageBus)
         {
             $this->hubNotifierInterface = $hubNotifierInterface;
+            $this->messageBus           = $messageBus;
         }
         
         /**
@@ -82,8 +86,13 @@
             return $this->notification;
         }
         
-        public function setNotification(?Update $notification): void
+        public function setNotification(?Update $notification, bool $async = false): void
         {
+            $this->async        = $async;
             $this->notification = $notification;
+        }
+        public function getAsync(): bool
+        {
+            return $this->async;
         }
     }

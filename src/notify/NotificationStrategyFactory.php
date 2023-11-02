@@ -4,6 +4,7 @@
     
     use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
     use Symfony\Component\Mercure\HubInterface;
+    use Symfony\Component\Messenger\MessageBusInterface;
     use Symfony\Component\Notifier\NotifierInterface;
     
     /**
@@ -48,17 +49,19 @@
     
     class NotificationStrategyFactory
     {
-        private NotifierInterface       $notifier;
-        private ParameterBagInterface   $parameterBag;
-        private mixed $neoxTemplate;
-        private HubInterface|null $hub;
+        private NotifierInterface               $notifier;
+        private ParameterBagInterface           $parameterBag;
+        private mixed                           $neoxTemplate;
+        private HubInterface|null               $hub;
+        private MessageBusInterface|null      $messageBus;
         
-        public function __construct(NotifierInterface $notifier, ParameterBagInterface $parameterBag, mixed $neoxTemplate, ?HubInterface $hub = null)
+        public function __construct(NotifierInterface $notifier, ParameterBagInterface $parameterBag, mixed $neoxTemplate, HubInterface $hub, MessageBusInterface $messageBus)
         {
             $this->notifier             = $notifier;
             $this->parameterBag         = $parameterBag;
             $this->neoxTemplate         = $neoxTemplate;
             $this->hub                  = $hub;
+            $this->messageBus           = $messageBus;
         }
         
         /**
@@ -81,6 +84,6 @@
         
         public function MercureStrategy(): MercureStrategy
         {
-            return new MercureStrategy($this->hub);
+            return new MercureStrategy($this->hub, $this->messageBus);
         }
     }
