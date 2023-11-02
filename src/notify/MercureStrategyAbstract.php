@@ -47,12 +47,12 @@
      *
      */
     
-    class NotificationStrategyFactory
+    class MercureStrategyAbstract
     {
         private NotifierInterface       $notifier;
         private ParameterBagInterface   $parameterBag;
         private mixed $neoxTemplate;
-        private HubInterface|null            $hubNotifierInterface;
+        protected HubInterface|null            $hubNotifierInterface;
         
         public function __construct( NotifierInterface $notifier, ParameterBagInterface $parameterBag, mixed $neoxTemplate, ?HubInterface $hubNotifierInterface)
         {
