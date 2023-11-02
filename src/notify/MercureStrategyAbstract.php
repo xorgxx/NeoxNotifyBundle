@@ -2,10 +2,10 @@
     
     namespace NeoxNotify\NeoxNotifyBundle\notify;
     
-    use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+//    use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
     use Symfony\Component\Mercure\HubInterface;
     use Symfony\Component\Mercure\Update;
-    use Symfony\Component\Notifier\NotifierInterface;
+//    use Symfony\Component\Notifier\NotifierInterface;
     
     /**
      * $notificationQueue = new NotificationQueue();
