@@ -3,6 +3,7 @@
     namespace NeoxNotify\NeoxNotifyBundle\notify;
     
     use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+    use Symfony\Component\Mercure\HubInterface;
     use Symfony\Component\Notifier\NotifierInterface;
     
     /**
@@ -50,12 +51,14 @@
         private NotifierInterface       $notifier;
         private ParameterBagInterface   $parameterBag;
         private mixed $neoxTemplate;
+        private HubInterface|null $hub;
         
-        public function __construct(NotifierInterface $notifier, ParameterBagInterface $parameterBag, mixed $neoxTemplate)
+        public function __construct(NotifierInterface $notifier, ParameterBagInterface $parameterBag, mixed $neoxTemplate, ?HubInterface $hub = null)
         {
             $this->notifier             = $notifier;
             $this->parameterBag         = $parameterBag;
             $this->neoxTemplate         = $neoxTemplate;
+            $this->hub                  = $hub;
         }
         
         /**
@@ -74,5 +77,10 @@
         public function NotificationStrategy(): NotificationStrategy
         {
             return new NotificationStrategy($this->notifier, $this->parameterBag);
+        }
+        
+        public function MercureStrategy(): MercureNotificationStrategy
+        {
+            return new MercureNotificationStrategy($this->hub);
         }
     }
