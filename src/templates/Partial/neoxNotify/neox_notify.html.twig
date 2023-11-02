@@ -1,0 +1,4 @@
+
+{% for topic in topics %}
+	<div {{ stimulus_controller(controller,{url: mercure(topic),background: "#212529",}) }}></div>
+{% endfor %}

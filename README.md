@@ -187,7 +187,7 @@ myController.php
             // put in Queue
             $notificationQueue->addNotification($emailStrategy);
      
-     
+            
             // ====================== MERCURE NOTIFICATION -> WSS =================
             $mercureStrategy       = $notificationStrategyFactory->MercureStrategy();
             $mercureStrategy->setNotification( new Update(
@@ -200,7 +200,8 @@ myController.php
             $notificationQueue->sendNotifications();
         }
 ```
-*ADVANCE you can create class with your full logic !! as you will do normally with NotificationBundle. it have to return Notification.
+* more abort Mercure set flash  [set flash ]( Doc/Mercure.md )
+* ADVANCE you can create class with your full logic !! as you will do normally with NotificationBundle. it have to return Notification.
 
 
 
