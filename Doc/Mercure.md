@@ -2,7 +2,7 @@
 
 
 ## Configuration
-* Copy & past form  
+* Copy & past from  
 ```
 NeoxNotifyBundle
 └─── assets
