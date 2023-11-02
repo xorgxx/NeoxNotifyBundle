@@ -6,7 +6,7 @@
     {
         private array $notifications = [];
         
-        public function addNotification(NotificationStrategyAbstract $notificationStrategy): void
+        public function addNotification(NotificationStrategyAbstract|MercureStrategyAbstract $notificationStrategy): void
         {
             $this->notifications[] = $notificationStrategy;
         }
