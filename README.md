@@ -175,7 +175,23 @@ myController.php
         #[Route('/{id}/send', name: 'app_admin_tokyo_crud_send', methods: ['GET'])]
         public function send( Request $request, Tokyo $tokyo, NotificationStrategyFactory $notificationStrategyFactory): Response
         {
-                        
+            // ====================== NEW SYNTAXE STANDARD NOTIFICATION -> BROWSER =================
+            $notification       = $notificationStrategyFactory->NotificationStrategy();
+            $msg                = "Flash-1 sales has been started ❤️😉";
+            $notification->setNotification(new Notification($msg, ['chat/mercureChatter']));
+            // put in Queue
+            $notificationStrategyFactory->addNotification($notification);         
+            
+            ......
+               
+            // Send all notifications in the queue
+            $notificationStrategyFactory->sendNotifications();
+            // ====================== NEW SYNTAXE STANDARD NOTIFICATION -> BROWSER =================           
+                       
+                       
+            // ====================== ⬇️⬇️ THIS SYNTAXE IS FOR LEGACY ⬇️⬇️ =================        
+            // =================================================================== 
+            
             // Create listing Queue
             $notificationQueue  = new NotificationQueue();
             
