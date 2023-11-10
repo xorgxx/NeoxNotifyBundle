@@ -47,13 +47,13 @@
      *
      */
     
-    class NotificationStrategyFactory
+    class NotificationStrategyFactory extends notificationQueue
     {
         private NotifierInterface               $notifier;
         private ParameterBagInterface           $parameterBag;
         private mixed                           $neoxTemplate;
         private HubInterface|null               $hub;
-        private MessageBusInterface|null      $messageBus;
+        private MessageBusInterface|null        $messageBus;
         
         public function __construct(NotifierInterface $notifier, ParameterBagInterface $parameterBag, mixed $neoxTemplate, HubInterface $hub, MessageBusInterface $messageBus)
         {
