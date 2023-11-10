@@ -4,17 +4,14 @@ namespace NeoxNotify\NeoxNotifyBundle\Twig;
 
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 class neoxNotifyExtension extends AbstractExtension
 {
-
-    public function __construct( )
-    {
-        // Inject dependencies if needed
-
-    }
+    
+    public function __construct( private readonly RequestStack $requestStack) {}
 
     public function getFilters(): array
     {
@@ -39,10 +36,24 @@ class neoxNotifyExtension extends AbstractExtension
     
     public function generateNotifyHtml(Environment $twig, string $controllerName = "notify", array $topics = []): string
     {
+        $topics = $this->addMsgSystem($topics);
+        
         return $twig->render("Partial/neoxNotify/neox_notify.html.twig", array(
-            'controller' => $controllerName,
-            'topics' => $topics,
+            'controller'    => $controllerName,
+            'topics'        => $topics,
         ));
     }
     
+    /**
+     * @param array $topics
+     *
+     * @return array
+     */
+    public function addMsgSystem(array $topics): array
+    {
+        $idSession  = $this->requestStack->getCurrentRequest()->getSession()->getId();
+        $topics[]   = "/msg:system/" . $idSession;
+        return $topics;
     }
+    
+}

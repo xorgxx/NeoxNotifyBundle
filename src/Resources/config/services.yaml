@@ -41,6 +41,13 @@ services:
     NeoxNotify\NeoxNotifyBundle\Transport\SmsPartnerTransportFactory:
         tags: [ messenger.transport_factory ]
         
+    NeoxNotify\NeoxNotifyBundle\Twig\neoxNotifyExtension:
+        autowire: true
+        tags:
+            - { name: 'twig.extension' }
+        arguments:
+            - '@Symfony\Component\HttpFoundation\RequestStack'
+            
 #    NeoxNotify\NeoxNotifyBundle\notify\EmailNotificationStrategy:
 #
 #        arguments:
