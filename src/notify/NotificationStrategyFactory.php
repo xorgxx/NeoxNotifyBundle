@@ -57,7 +57,15 @@
         private HubInterface|null               $hub;
         private MessageBusInterface|null        $messageBus;
         
-        public function __construct(RequestStack $requestStack, NotifierInterface $notifier, ParameterBagInterface $parameterBag, mixed $neoxTemplate, HubInterface $hub, MessageBusInterface $messageBus)
+        public function __construct(
+            RequestStack $requestStack,
+            NotifierInterface $notifier,
+            ParameterBagInterface $parameterBag,
+            mixed $neoxTemplate,
+            HubInterface $hub,
+            MessageBusInterface $messageBus,
+            notificationQueue $notificationQueue
+        )
         {
             $this->requestStack         = $requestStack;
             $this->notifier             = $notifier;
@@ -65,6 +73,7 @@
             $this->neoxTemplate         = $neoxTemplate;
             $this->hub                  = $hub;
             $this->messageBus           = $messageBus;
+            $this->notificationQueue    = $notificationQueue;
         }
         
         /**
@@ -87,6 +96,6 @@
         
         public function MercureStrategy(): MercureStrategy
         {
-            return new MercureStrategy($this->hub, $this->messageBus, $this->requestStack);
+            return new MercureStrategy($this->hub, $this->messageBus, $this->requestStack, $this->notificationQueue);
         }
     }

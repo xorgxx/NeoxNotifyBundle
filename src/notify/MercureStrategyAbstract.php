@@ -57,29 +57,12 @@
         protected MessageBusInterface|null     $messageBus;
         private ?Update $notification;
         
-        public function __construct( HubInterface $hubNotifierInterface, MessageBusInterface $messageBus, RequestStack $requestStack)
+        public function __construct( HubInterface $hubNotifierInterface, MessageBusInterface $messageBus, RequestStack $requestStack, notificationQueue $notificationQueue)
         {
             $this->hubNotifierInterface = $hubNotifierInterface;
             $this->messageBus           = $messageBus;
             $this->requestStack         = $requestStack;
-        }
-        
-        /**
-         * @var NotificationQueue
-         * Can be use be static BUt dont like this way !!!
-         */
-        protected static NotificationQueue $notificationQueue;
-        
-        public static function setNotificationQueue(NotificationQueue $notificationQueue): void
-        {
-            static::$notificationQueue = $notificationQueue;
-        }
-        
-        public function addToQueue(): void
-        {
-            if (static::$notificationQueue) {
-                static::$notificationQueue->addNotification($this);
-            }
+            $this->notificationQueue    = $notificationQueue;
         }
         
         abstract public function sendNotification(): void;
@@ -89,13 +72,16 @@
             return $this->notification;
         }
         
-        public function setNotification(?Update $notification, bool $async = false): void
+        public function setNotification(?Update $notification, bool $async = false): self
         {
             $this->async        = $async;
             $this->notification = $notification;
+            $this->notificationQueue->addNotification($this);
+            
+            return $this;
         }
         
-        public function setSweetNotification(string $data, string $topic = null,  string $icon = "success"): void
+        public function setSweetNotification(string $data, string $topic = null,  string $icon = "success"): self
         {
             
             $topic = $topic ? : '/msg:system/' . $this->requestStack->getCurrentRequest()->getSession()->getId();
@@ -105,7 +91,8 @@
                 json_encode(["data" => $data, "icon" => $icon], JSON_THROW_ON_ERROR),
                 false,
             );
-            $this->setNotification($update);
+            
+            return $this->setNotification($update);
             
         }
         
