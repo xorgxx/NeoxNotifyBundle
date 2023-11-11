@@ -193,6 +193,11 @@ myController.php
             $notification->setSweetNotification( "Flash-Mercure tyty sales has been started ❤️😉");
             $notificationStrategyFactory->addNotification($notification);
             
+            Or even better 🎉🎉🎉
+            
+            $notification->setSweetNotification( "Flash-Mercure xorg sales has been started ❤️😉")->sendNotification();
+            
+            
             // ====================== NEW SYNTAXE STANDARD NOTIFICATION -> BROWSER =================           
                        
                        
