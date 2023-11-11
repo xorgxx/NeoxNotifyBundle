@@ -34,25 +34,8 @@
             $this->setRecipient(new Recipient($this->parameterBag->get("email-service"), $this->parameterBag->get("sms-service")));
         }
         
-        /**
-         * @var NotificationQueue
-         * Can be use be static BUt dont like this way !!!
-         */
-        protected static NotificationQueue $notificationQueue;
         
-        public static function setNotificationQueue(NotificationQueue $notificationQueue): void
-        {
-            static::$notificationQueue = $notificationQueue;
-        }
-        
-        public function addToQueue(): void
-        {
-            if (static::$notificationQueue) {
-                static::$notificationQueue->addNotification($this);
-            }
-        }
-        
-        abstract public function sendNotification(): void;
+        abstract public function sendNotifications(): void;
         
         public function getSender(): Recipient
         {

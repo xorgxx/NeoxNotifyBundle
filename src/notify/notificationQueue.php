@@ -8,13 +8,13 @@
         
         public function addNotification(NotificationStrategyAbstract|MercureStrategyAbstract $notificationStrategy): void
         {
-            $this->notifications[] = $notificationStrategy;
+            $this->notifications[] = clone $notificationStrategy;
         }
         
         public function sendNotifications(): void
         {
             foreach ($this->notifications as $notificationStrategy) {
-                $notificationStrategy->sendNotification();
+                $notificationStrategy->sendNotifications();
             }
         }
     }

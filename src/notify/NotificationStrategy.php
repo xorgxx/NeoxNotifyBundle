@@ -4,7 +4,7 @@
     
     class NotificationStrategy extends NotificationStrategyAbstract
     {
-        public function sendNotification(): void
+        public function sendNotifications(): void
         {
             // send
             $this->notifier->send($this->getNotification(), $this->getRecipient());

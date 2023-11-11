@@ -182,6 +182,7 @@ myController.php
             // put in Queue
             $notificationStrategyFactory->addNotification($notification);         
             
+      
             ......
                
             // Send all notifications in the queue

@@ -56,6 +56,7 @@
         protected HubInterface|null            $hubNotifierInterface;
         protected MessageBusInterface|null     $messageBus;
         private ?Update $notification;
+        protected notificationQueue            $notificationQueue;
         
         public function __construct( HubInterface $hubNotifierInterface, MessageBusInterface $messageBus, RequestStack $requestStack, notificationQueue $notificationQueue)
         {
@@ -65,7 +66,7 @@
             $this->notificationQueue    = $notificationQueue;
         }
         
-        abstract public function sendNotification(): void;
+//        abstract public function sendNotifications(): void;
         
         public function getNotification(): ?Update
         {
@@ -76,8 +77,7 @@
         {
             $this->async        = $async;
             $this->notification = $notification;
-            $this->notificationQueue->addNotification($this);
-            
+            $this->notificationQueue->addNotification(clone $this);
             return $this;
         }
         
@@ -99,5 +99,10 @@
         public function getAsync(): bool
         {
             return $this->async;
+        }
+        
+        public function sendAllMercure():void
+        {
+            $this->notificationQueue->sendNotifications();
         }
     }

@@ -14,7 +14,7 @@
             parent::__construct($notifier, $parameterBag, $neoxTemplate);
         }
         
-        public function sendNotification(): void
+        public function sendNotifications(): void
         {
            
             $notification = new EmailCustomer($this, $this->neoxTemplate);
