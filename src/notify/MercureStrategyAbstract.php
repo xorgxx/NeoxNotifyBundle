@@ -3,6 +3,8 @@
     namespace NeoxNotify\NeoxNotifyBundle\notify;
     
     //    use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+    use Symfony\Component\HttpFoundation\Request;
+    use Symfony\Component\HttpFoundation\RequestStack;
     use Symfony\Component\Mercure\HubInterface;
     use Symfony\Component\Mercure\Update;
     use Symfony\Component\Messenger\MessageBusInterface;
@@ -55,10 +57,11 @@
         protected MessageBusInterface|null     $messageBus;
         private ?Update $notification;
         
-        public function __construct( HubInterface $hubNotifierInterface, MessageBusInterface $messageBus)
+        public function __construct( HubInterface $hubNotifierInterface, MessageBusInterface $messageBus, RequestStack $requestStack)
         {
             $this->hubNotifierInterface = $hubNotifierInterface;
             $this->messageBus           = $messageBus;
+            $this->requestStack         = $requestStack;
         }
         
         /**
@@ -91,6 +94,21 @@
             $this->async        = $async;
             $this->notification = $notification;
         }
+        
+        public function setSweetNotification(string $data, string $topic = null,  string $icon = "success"): void
+        {
+            
+            $topic = $topic ? : '/msg:system/' . $this->requestStack->getCurrentRequest()->getSession()->getId();
+            
+            $update = new Update(
+                $topic,
+                json_encode(["data" => $data, "icon" => $icon], JSON_THROW_ON_ERROR),
+                false,
+            );
+            $this->setNotification($update);
+            
+        }
+        
         public function getAsync(): bool
         {
             return $this->async;

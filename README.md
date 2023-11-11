@@ -186,6 +186,13 @@ myController.php
                
             // Send all notifications in the queue
             $notificationStrategyFactory->sendNotifications();
+            
+            //====================== FAST WAY TO SEND "FLASH" for Mercure & SweetAllert
+            // if you have setup mercure & sweetAlert on your app then 
+            
+            $notification->setSweetNotification( "Flash-Mercure tyty sales has been started ❤️😉");
+            $notificationStrategyFactory->addNotification($notification);
+            
             // ====================== NEW SYNTAXE STANDARD NOTIFICATION -> BROWSER =================           
                        
                        

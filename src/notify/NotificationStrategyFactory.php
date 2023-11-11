@@ -3,6 +3,7 @@
     namespace NeoxNotify\NeoxNotifyBundle\notify;
     
     use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+    use Symfony\Component\HttpFoundation\RequestStack;
     use Symfony\Component\Mercure\HubInterface;
     use Symfony\Component\Messenger\MessageBusInterface;
     use Symfony\Component\Notifier\NotifierInterface;
@@ -49,14 +50,16 @@
     
     class NotificationStrategyFactory extends notificationQueue
     {
+        private RequestStack                    $requestStack;
         private NotifierInterface               $notifier;
         private ParameterBagInterface           $parameterBag;
         private mixed                           $neoxTemplate;
         private HubInterface|null               $hub;
         private MessageBusInterface|null        $messageBus;
         
-        public function __construct(NotifierInterface $notifier, ParameterBagInterface $parameterBag, mixed $neoxTemplate, HubInterface $hub, MessageBusInterface $messageBus)
+        public function __construct(RequestStack $requestStack, NotifierInterface $notifier, ParameterBagInterface $parameterBag, mixed $neoxTemplate, HubInterface $hub, MessageBusInterface $messageBus)
         {
+            $this->requestStack         = $requestStack;
             $this->notifier             = $notifier;
             $this->parameterBag         = $parameterBag;
             $this->neoxTemplate         = $neoxTemplate;
@@ -84,6 +87,6 @@
         
         public function MercureStrategy(): MercureStrategy
         {
-            return new MercureStrategy($this->hub, $this->messageBus);
+            return new MercureStrategy($this->hub, $this->messageBus, $this->requestStack);
         }
     }
