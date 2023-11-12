@@ -7,6 +7,7 @@
     use Symfony\Component\Mercure\HubInterface;
     use Symfony\Component\Messenger\MessageBusInterface;
     use Symfony\Component\Notifier\NotifierInterface;
+    use Symfony\Component\Notifier\ChatterInterface;
     
     /**
      * $notificationQueue = new NotificationQueue();
@@ -52,6 +53,7 @@
     {
         private RequestStack                    $requestStack;
         private NotifierInterface               $notifier;
+        private ChatterInterface                $chatter;
         private ParameterBagInterface           $parameterBag;
         private mixed                           $neoxTemplate;
         private HubInterface|null               $hub;
@@ -60,6 +62,7 @@
         public function __construct(
             RequestStack $requestStack,
             NotifierInterface $notifier,
+            ChatterInterface $chatter,
             ParameterBagInterface $parameterBag,
             mixed $neoxTemplate,
             HubInterface $hub,
@@ -69,6 +72,7 @@
         {
             $this->requestStack         = $requestStack;
             $this->notifier             = $notifier;
+            $this->chatter              = $chatter;
             $this->parameterBag         = $parameterBag;
             $this->neoxTemplate         = $neoxTemplate;
             $this->hub                  = $hub;
@@ -97,5 +101,10 @@
         public function MercureStrategy(): MercureStrategy
         {
             return new MercureStrategy($this->hub, $this->messageBus, $this->requestStack, $this->notificationQueue);
+        }
+        
+        public function ChatterStrategy(): ChatterStrategy
+        {
+            return new ChatterStrategy($this->chatter, $this->requestStack, $this->notificationQueue);
         }
     }

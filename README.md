@@ -244,6 +244,18 @@ If you want to contribute \(thank you!\) to this bundle, here are some guideline
     * You see code that works but isn't covered by any tests \(there is a special place in heaven for you\)
 
 ## Todo
-* !!!
+* ChatMessenger customers to be able to send messages to a different chat server 🎉
+```php
+      $message = ( new ChatMessage(
+                    'Flash sales has been started!',
+                    new MercureOptions(['/chat/flash-sales'])
+                  )
+                )->transport('myMercureChatter');
+      $notification  = $notificationStrategyFactory->chatNotificationStrategy();  
+      $notification->setNotification($message));
+      // put in Queue
+      $notificationStrategyFactory->addNotification($notification); 
+      
+```
 
 ## Thanks
