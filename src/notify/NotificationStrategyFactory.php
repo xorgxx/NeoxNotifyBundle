@@ -58,6 +58,7 @@
         private mixed                           $neoxTemplate;
         private HubInterface|null               $hub;
         private MessageBusInterface|null        $messageBus;
+        private notificationQueue               $notificationQueue;
         
         public function __construct(
             RequestStack $requestStack,
@@ -90,12 +91,12 @@
         
         public function EmailStrategy(): EmailNotificationStrategy
         {
-            return new EmailNotificationStrategy($this->notifier, $this->parameterBag, $this->neoxTemplate );
+            return new EmailNotificationStrategy($this->notifier, $this->parameterBag, $this->neoxTemplate);
         }
         
         public function NotificationStrategy(): NotificationStrategy
         {
-            return new NotificationStrategy($this->notifier, $this->parameterBag);
+            return new NotificationStrategy($this->notifier, $this->parameterBag, $this->notificationQueue);
         }
         
         public function MercureStrategy(): MercureStrategy

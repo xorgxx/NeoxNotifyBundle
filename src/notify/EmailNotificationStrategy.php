@@ -14,6 +14,10 @@
             parent::__construct($notifier, $parameterBag, $neoxTemplate);
         }
         
+        public function send(): void
+        {
+            $this->notificationQueue->sendNotifications();
+        }
         public function sendNotifications(): void
         {
            

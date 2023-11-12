@@ -21,13 +21,15 @@
         protected NotifierInterface $notifier;
         protected ParameterBagInterface $parameterBag;
         protected mixed $neoxTemplate;
+        protected notificationQueue $notificationQueue;
         
-        public function __construct(NotifierInterface $notifier, ParameterBagInterface $parameterBag, $neoxTemplate = null)
+        public function __construct(NotifierInterface $notifier, ParameterBagInterface $parameterBag, notificationQueue $notificationQueue, $neoxTemplate = null)
         {
             parent::__construct();
-            $this->notifier         = $notifier;
-            $this->parameterBag     = $parameterBag;
-            $this->neoxTemplate     = $neoxTemplate;
+            $this->notifier             = $notifier;
+            $this->parameterBag         = $parameterBag;
+            $this->neoxTemplate         = $neoxTemplate;
+            $this->notificationQueue    = $notificationQueue;
             
             // set by default sender & recipient to admin web site address
             $this->setSender(new Recipient($this->parameterBag->get("email-service"), $this->parameterBag->get("sms-service")));
@@ -104,9 +106,11 @@
             return $this->notification;
         }
         
-        public function setNotification(?Notification $notification): void
+        public function setNotification(?Notification $notification): self
         {
             $this->notification = $notification;
+            $this->notificationQueue->addNotification(clone $this);
+            return $this;
         }
         
     }
