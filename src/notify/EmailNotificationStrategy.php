@@ -9,9 +9,9 @@
     {
         protected mixed $neoxTemplate;
         
-        public function __construct(NotifierInterface $notifier, ParameterBagInterface $parameterBag, $neoxTemplate)
+        public function __construct(NotifierInterface $notifier, ParameterBagInterface $parameterBag, $neoxTemplate, notificationQueue $notificationQueue)
         {
-            parent::__construct($notifier, $parameterBag, $neoxTemplate);
+            parent::__construct($notifier, $parameterBag, $neoxTemplate, $notificationQueue);
         }
         
         public function send(): void
