@@ -24,6 +24,8 @@ How to use ?
 //        // If you want to send now -> $notificationStrategyFactory->sendNotifications();
 //        // ======================= message notification LEGACY == END =================
 
+        OR
+
         // ======================= message notification Push
         //  Here send notification PUSH to mercure hub topic - /chat/flash-sales
         $message = (new ChatMessage('Push -- Flash sales has been started!', new MercureOptions(['/chat/flash-sales'])))->transport('mercureChatter');
