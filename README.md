@@ -25,6 +25,12 @@ return [
     .....
 ];
 ```
+## !! IMPORTANT NOTE !!
+All transports Mercure, RabbitMQ .... have to be installed in order to use them !!!
+NeoxNotifyBundle will use your transport configuration. be aware that first you need to install and to set them properly, then only notify can work.
+* NeoxNotifyBundle will not install and set for you Mercure, RabbitMQ ....
+
+
 ## news 
 * Add transport configuration automatique for service provide by (not free) | Partner [Sms Partner](https://www.smspartner.fr)
 * Add reporting send SMS as emailSend in dataBase + in add in symfony logger if it failed
