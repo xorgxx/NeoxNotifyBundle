@@ -5,9 +5,8 @@
     //    use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\RequestStack;
-    use Symfony\Component\Mercure\HubInterface;
-    use Symfony\Component\Mercure\Update;
-    use Symfony\Component\Messenger\MessageBusInterface;
+    use Symfony\Component\Notifier\TexterInterface;
+    use Symfony\Component\Notifier\Message\SmsMessage;
 
 //    use Symfony\Component\Notifier\NotifierInterface;
     
@@ -51,29 +50,24 @@
      *
      */
     
-    abstract class MercureStrategyAbstract
+    abstract class TexterStrategyAbstract
     {
-        protected HubInterface              $hubNotifierInterface;
-        protected MessageBusInterface       $messageBus;
-        private Update                      $notification;
-        protected notificationQueue         $notificationQueue;
+        protected notificationQueue $notificationQueue;
         
-        public function __construct( HubInterface $hubNotifierInterface, MessageBusInterface $messageBus, RequestStack $requestStack, notificationQueue $notificationQueue)
+        public function __construct(TexterInterface $texter, notificationQueue $notificationQueue)
         {
-            $this->hubNotifierInterface = $hubNotifierInterface;
-            $this->messageBus           = $messageBus;
-            $this->requestStack         = $requestStack;
+            $this->texter               = $texter;
             $this->notificationQueue    = $notificationQueue;
         }
-        
+
 //        abstract public function sendNotifications(): void;
         
-        public function getNotification(): Update
+        public function getNotification(): SmsMessage
         {
             return $this->notification;
         }
         
-        public function setNotification(Update $notification, bool $async = false): self
+        public function setNotification(SmsMessage $notification, bool $async = false): self
         {
             $this->async        = $async;
             $this->notification = $notification;
@@ -81,28 +75,8 @@
             return $this;
         }
         
-        public function setSweetNotification(string $data, string $topic = null,  string $icon = "success"): self
-        {
-            
-            $topic = $topic ? : '/msg:system/' . $this->requestStack->getCurrentRequest()->getSession()->getId();
-            
-            $update = new Update(
-                $topic,
-                json_encode(["data" => $data, "icon" => $icon], JSON_THROW_ON_ERROR),
-                false,
-            );
-            
-            return $this->setNotification($update);
-            
-        }
-        
         public function getAsync(): bool
         {
             return $this->async;
-        }
-        
-        public function sendAllMercure():void
-        {
-            $this->notificationQueue->sendNotifications();
         }
     }

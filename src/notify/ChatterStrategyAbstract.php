@@ -64,12 +64,12 @@
 
 //        abstract public function sendNotifications(): void;
         
-        public function getNotification(): ?ChatMessage
+        public function getNotification(): ChatMessage
         {
             return $this->notification;
         }
         
-        public function setNotification(?ChatMessage $notification, bool $async = false): self
+        public function setNotification(ChatMessage $notification, bool $async = false): self
         {
             $this->async = $async;
             $this->notification = $notification;

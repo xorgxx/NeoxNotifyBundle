@@ -8,6 +8,7 @@
     use Symfony\Component\Messenger\MessageBusInterface;
     use Symfony\Component\Notifier\NotifierInterface;
     use Symfony\Component\Notifier\ChatterInterface;
+    use Symfony\Component\Notifier\TexterInterface;
     
     /**
      * $notificationQueue = new NotificationQueue();
@@ -56,14 +57,15 @@
         private ChatterInterface                $chatter;
         private ParameterBagInterface           $parameterBag;
         private mixed                           $neoxTemplate;
-        private HubInterface|null               $hub;
-        private MessageBusInterface|null        $messageBus;
+        private HubInterface                    $hub;
+        private MessageBusInterface             $messageBus;
         private notificationQueue               $notificationQueue;
         
         public function __construct(
             RequestStack $requestStack,
             NotifierInterface $notifier,
             ChatterInterface $chatter,
+            TexterInterface $texter,
             ParameterBagInterface $parameterBag,
             mixed $neoxTemplate,
             HubInterface $hub,
@@ -74,6 +76,7 @@
             $this->requestStack         = $requestStack;
             $this->notifier             = $notifier;
             $this->chatter              = $chatter;
+            $this->texter               = $texter;
             $this->parameterBag         = $parameterBag;
             $this->neoxTemplate         = $neoxTemplate;
             $this->hub                  = $hub;
@@ -107,5 +110,10 @@
         public function ChatterStrategy(): ChatterStrategy
         {
             return new ChatterStrategy($this->chatter, $this->requestStack, $this->notificationQueue);
+        }
+        
+        public function TexterStrategy(): TexterStrategy
+        {
+            return new TexterStrategy($this->texter, $this->notificationQueue);
         }
     }

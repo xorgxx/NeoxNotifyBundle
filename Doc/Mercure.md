@@ -30,6 +30,12 @@ in twig Template
 How to use ?
 ````php
 
+        ....
+            use NeoxNotify\NeoxNotifyBundle\notify\NotificationStrategyFactory;
+            use NeoxNotify\NeoxNotifyBundle\notify\notificationQueue;
+        ....
+
+
         // ======================= message notification LEGACY
         // Create
         //  Here send notification to mercure hub topic "*TO ALL*" - 'https://symfony.com/notifier'

@@ -107,44 +107,11 @@ myController.php
             // put in Queue
             $notificationQueue->addNotification($notification);
             
-            // ====================== SMS ==========================
-            $notification  = $this->notificationStrategyFactory->NotificationStrategy();
-            $phone         = "+" . tokyo->getPhoneNumber()->getCountryCode() . tokyo->getPhoneNumber()->getNationalNumber();
-            $msg           = "Only for testing dev !!";            
-            $notification->setNotification((new Notification($msg, ['sms'])));
-            $notification->setRecipient(new Recipient("null", $phone));
-            $notificationQueue->addNotification($notification);
-            // put in Queue
-            $notificationQueue->addNotification($emailStrategy);
-            
-            // ====================== STANDARD NOTIFICATION -> BROWSER =================
-            $emailStrategy  = $notificationStrategyFactory->createNotificationStrategy();
-            $msg            = "This is test to try ....";
-            $emailStrategy->setNotification((new Notification($msg, ['browser'])));
-            $emailStrategy->setRecipient(new NoRecipient());
-            $notificationQueue->addNotification($emailStrategy);
-              
-            // ========== 🔥🔥 ========== ** MERCURE ** ========== 🔥🔥 =============
-            $notification  = $this->notificationStrategyFactory->NotificationStrategy();
-            $msg           = "Flash-2 sales has been started ❤️😉";            
-            $notification->setNotification((new Notification($msg, ['chat/mercureChatter'])));
-            $notification->setRecipient(new NoRecipient());
-            $notificationQueue->addNotification($notification);
-            // put in Queue
-            $notificationQueue->addNotification($emailStrategy);
-     
-            // Send all notifications in the queue
-            $notificationQueue->sendNotifications();
-            
-            $this->addFlash('success', "Un email a été envoyer.");
-            // 🔥🔥 The Black magic happens here! 🔥🔥
-            $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
-            return $this->render('@NeoxTable/msg.stream.html.twig', ["domaine" => "tokyo"]);
+            ......
+    
         }
 
 ```
-## How to use ?
-Now is you set save
 ## By aware !!
 All variable you pass in twig going to be set with prefix ["neox_"] this option we choose to avoid conflicts in the template
 ```php
@@ -164,82 +131,11 @@ All variable you pass in twig going to be set with prefix ["neox_"] this option 
 
 
 ## How to use ADVANCE 🎉 ?
-```php
-myController.php
-<?php
-....
-    use NeoxNotify\NeoxNotifyBundle\notify\NotificationStrategyFactory;
-    use NeoxNotify\NeoxNotifyBundle\notify\notificationQueue;
-....
-
-        #[Route('/{id}/send', name: 'app_admin_tokyo_crud_send', methods: ['GET'])]
-        public function send( Request $request, Tokyo $tokyo, NotificationStrategyFactory $notificationStrategyFactory): Response
-        {
-            // ====================== NEW SYNTAXE STANDARD NOTIFICATION -> BROWSER =================
-            $notification       = $notificationStrategyFactory->NotificationStrategy();
-            $msg                = "Flash-1 sales has been started ❤️😉";
-            $notification->setNotification(new Notification($msg, ['chat/mercureChatter']));
-            // put in Queue
-            $notificationStrategyFactory->addNotification($notification);         
-            
-      
-            ......
-               
-            // Send all notifications in the queue
-            $notificationStrategyFactory->sendNotifications();
-            
-            //====================== FAST WAY TO SEND "FLASH" for Mercure & SweetAllert
-            // if you have setup mercure & sweetAlert on your app then 
-            
-            $notification->setSweetNotification( "Flash-Mercure tyty sales has been started ❤️😉");
-            $notificationStrategyFactory->addNotification($notification);
-            
-            Or even better 🎉🎉🎉
-            
-            $notification->setSweetNotification( "Flash-Mercure xorg sales has been started ❤️😉")->sendNotification();
-            
-            
-            $message = ( new ChatMessage(
-              'Flash sales has been started!',
-              new MercureOptions(['/chat/flash-sales'])
-            ))->transport('myMercureChatter');
-            $notification  = $notificationStrategyFactory->chatNotificationStrategy();  
-            $notification->setNotification($message));
-            // put in Queue
-            $notificationStrategyFactory->addNotification($notification); 
-      
-            
-            // ====================== NEW SYNTAXE STANDARD NOTIFICATION -> BROWSER =================           
-                       
-                       
-            // ====================== ⬇️⬇️ THIS SYNTAXE IS FOR LEGACY ⬇️⬇️ =================        
-            // =================================================================== 
-            
-            // Create listing Queue
-            $notificationQueue  = new NotificationQueue();
-            
-            // ====================== STANDARD NOTIFICATION -> BROWSER =================
-            $emailStrategy  = $notificationStrategyFactory->createNotificationStrategy();
-            $msg            = "This is test to try ....";
-            $emailStrategy->setNotification((new advance($msg, ['browser'])));   <---------- HERE Advance*
-            $emailStrategy->setRecipient(new NoRecipient());
-            // put in Queue
-            $notificationQueue->addNotification($emailStrategy);
-     
-            
-            // ====================== MERCURE NOTIFICATION -> WSS =================
-            $mercureStrategy       = $notificationStrategyFactory->MercureStrategy();
-            $mercureStrategy->setNotification( new Update(
-                '/my/topic/1',
-                json_encode(['data' => "Flash-MERCURE sales has been started ❤️😉"], JSON_THROW_ON_ERROR)
-            ));
-            $notificationQueue->addNotification($mercureStrategy);
-            
-            // Send all notifications in the queue
-            $notificationQueue->sendNotifications();
-        }
-```
+* more abort Email notify  [EMAIL]( Doc/Email.md )
+* more abort SMS notify  [SMS]( Doc/Texter.md )
+* more abort CHAT notify  [CHAT]( Doc/Chatter.md )
 * more abort Mercure set flash  [set flash ]( Doc/Mercure.md )
+
 * ADVANCE you can create class with your full logic !! as you will do normally with NotificationBundle. it have to return Notification.
 
 
