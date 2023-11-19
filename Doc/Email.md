@@ -18,6 +18,8 @@ How to use ?
             ->setTemplate("default")
             ->Subject('test')
             ->content('Content test')
+         ;
+         $notification->setNotification($notification)
             ->send();
 
         // ======================= message notification == END =======================
