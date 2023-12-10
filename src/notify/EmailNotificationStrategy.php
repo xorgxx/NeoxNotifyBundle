@@ -9,7 +9,7 @@
     {
         protected mixed $neoxTemplate;
         
-        public function __construct(NotifierInterface $notifier, ParameterBagInterface $parameterBag, $neoxTemplate, notificationQueue $notificationQueue)
+        public function __construct(NotifierInterface $notifier, ParameterBagInterface $parameterBag, notificationQueue $notificationQueue, $neoxTemplate)
         {
             parent::__construct($notifier, $parameterBag, $neoxTemplate, $notificationQueue);
         }

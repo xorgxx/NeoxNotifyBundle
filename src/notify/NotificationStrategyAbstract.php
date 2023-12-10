@@ -23,7 +23,7 @@
         protected mixed $neoxTemplate;
         protected notificationQueue $notificationQueue;
         
-        public function __construct(NotifierInterface $notifier, ParameterBagInterface $parameterBag, $neoxTemplate = null, notificationQueue $notificationQueue)
+        public function __construct(NotifierInterface $notifier, ParameterBagInterface $parameterBag, notificationQueue $notificationQueue, $neoxTemplate = null)
         {
             parent::__construct();
             $this->notifier             = $notifier;

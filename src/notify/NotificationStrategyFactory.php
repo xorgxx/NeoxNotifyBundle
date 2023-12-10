@@ -94,12 +94,12 @@
         
         public function EmailStrategy(): EmailNotificationStrategy
         {
-            return new EmailNotificationStrategy($this->notifier, $this->parameterBag, $this->neoxTemplate, $this->notificationQueue);
+            return new EmailNotificationStrategy($this->notifier, $this->parameterBag, $this->notificationQueue, $this->neoxTemplate);
         }
         
         public function NotificationStrategy(): NotificationStrategy
         {
-            return new NotificationStrategy($this->notifier, $this->parameterBag, null, $this->notificationQueue);
+            return new NotificationStrategy($this->notifier, $this->parameterBag, $this->notificationQueue, null);
         }
         
         public function MercureStrategy(): MercureStrategy
