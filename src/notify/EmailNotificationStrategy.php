@@ -11,7 +11,7 @@
         
         public function __construct(NotifierInterface $notifier, ParameterBagInterface $parameterBag, notificationQueue $notificationQueue, $neoxTemplate)
         {
-            parent::__construct($notifier, $parameterBag, $neoxTemplate, $notificationQueue);
+            parent::__construct($notifier, $parameterBag, $notificationQueue, $neoxTemplate);
         }
         
         public function send(): void
