@@ -40,7 +40,7 @@ services:
             
     NeoxNotify\NeoxNotifyBundle\EventSubscriber\NotifyAlertSubscriber:
         arguments:
-            - 'NeoxNotify\NeoxNotifyBundle\notify\NeoxNotifyAlertService'
+            - '@NeoxNotify\NeoxNotifyBundle\notify\NeoxNotifyAlertService'
         tags:
             - { name: kernel.event_subscriber }
             
