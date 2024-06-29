@@ -20,6 +20,16 @@
                             ->scalarNode('emails')->defaultValue("Partial\Emails")->end()
                         ->end()
                     ->end() // template
+                    ->arrayNode('service')
+                        ->children()
+                            ->arrayNode('channels')
+                                ->scalarPrototype()->defaultValue(null)->end()
+                            ->end()
+                            ->scalarNode('subject')->defaultValue("subject")->end()
+                            ->scalarNode('template')->defaultValue("default")->end()
+                            ->scalarNode('content')->defaultValue("....")->end()
+                        ->end()
+                    ->end()
                  
                     ->booleanNode('save_notify')->defaultTrue()->end()
                 ->end();
