@@ -12,6 +12,7 @@
             public Bool     $handle     = false,
             public ?array   $channels   = [],
             public ?string  $template   = null,
+            public ?array   $contexts   = [],
             public ?string  $subject    = null,
             public ?string  $content    = null,
         )
@@ -53,6 +54,18 @@
             return $this;
         }
 
+        public function getContexts(): ?array
+        {
+            return $this->contexts;
+        }
+
+        public function setContexts(?array $contexts): NeoxNotifyAlert
+        {
+            $this->contexts = $contexts;
+            return $this;
+        }
+
+        
         public function getSubject(): ?string
         {
             return $this->subject;

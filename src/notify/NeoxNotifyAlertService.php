@@ -66,7 +66,8 @@
                 ->setChannels($neoxBagParams [ 'service' ][ 'channels' ] ?? [])
                 ->setTemplate($neoxBagParams [ 'service' ][ 'template' ] ?? null)
                 ->setSubject($neoxBagParams [ 'service' ][ 'subject' ] ?? null)
-                ->setContent($neoxBagParams [ 'service' ][ 'content' ] ?? null);
+                ->setContent($neoxBagParams [ 'service' ][ 'content' ] ?? null)
+            ;
         }
 
         /**

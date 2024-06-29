@@ -32,7 +32,7 @@ NeoxNotifyBundle will use your transport configuration. be aware that first you 
 
 
 ## news 
-* Add transport configuration automatique for service provide by (not free) | Partner [Sms Partner](https://www.smspartner.fr)
+* Add transport configuration automatic for service provide by (not free) | Partner [Sms Partner](https://www.smspartner.fr)
 * Add reporting send SMS as emailSend in dataBase + in add in symfony logger if it failed
 ```
 .env
@@ -63,13 +63,20 @@ it at this time we ded not optimize all !!
 ```
 ## neox_notify.yaml
 It set automatique but you can custom
-```
-  neox_notify:
-    template: ~
-        include: Partial\include\fdgdgdf
-        emails: Partial\emails\
-    save_notify: true # by default true mean all notification send will be save in Db messenger. 
-    it will give error in Db data. it will also in monolog as log ERROR.
+``` 
+    parameters:
+        neox_notify:
+            template: ~
+                include: Partial\include\fdgdgdf
+                emails: Partial\emails\
+            save_notify: true # by default true mean all notification send will be save in Db messenger. 
+            it will give error in Db data. it will also in monolog as log ERROR.
+         
+            service:
+                channels: [] # email, slack, mercure, webhook, ...
+                subject: subject
+                template: default
+                content: ....
 ```
 
 it's away possible to custom path twig template to render !
@@ -118,6 +125,35 @@ myController.php
         }
 
 ```
+## Send notify be using Attribute !!
+
+```php
+myController.php
+<?php
+....
+  use NeoxNotify\NeoxNotifyBundle\Attribute\NeoxNotifyAlert;
+....
+
+        #[Route('/{id}/send', name: 'app_admin_tokyo_crud_send', methods: ['GET'])]
+        #[NeoxNotifyAlert(channels: ["email", "sms"], template: 'default', subject: 'Download file', content: '....', contexts: ["name" => "windev"])]
+        public function send( Request $request, Tokyo $tokyo, NotificationStrategyFactory $notificationStrategyFactory): Response
+        {
+                     
+            ......
+    
+        }
+        
+        all is set by default! attributes :
+        channels: ["email", "sms"]      -> chose witch channel you want to use.
+        template: 'default'             -> template name in folder "emails: Partial\emails\"
+        subject: 'Download file'        -> subject of email
+        content: '....'                 -> content/body email, sms, ....
+        contexts: ["name" => "symfony"] -> variable you may want to pass to twig in [template: 'default']!!
+        
+        *** for now on there is no possibility to add any variable as $xxxxx straite by attribute, but it will be implement soon !!
+        
+```
+
 ## By aware !!
 All variable you pass in twig going to be set with prefix ["neox_"] this option we choose to avoid conflicts in the template
 ```php

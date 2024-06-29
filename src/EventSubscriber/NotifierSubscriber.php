@@ -9,6 +9,7 @@
     use NeoxNotify\NeoxNotifyBundle\Entity\Messenger;
     use Psr\Log\LoggerInterface;
     use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+    use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
     use Symfony\Component\EventDispatcher\EventSubscriberInterface;
     use Symfony\Component\Mailer\Messenger\SendEmailMessage;
     use Symfony\Component\Messenger\Event\WorkerMessageFailedEvent;
@@ -22,39 +23,45 @@
     class NotifierSubscriber implements EventSubscriberInterface
     {
         
-        private MessengerRepository $messengerRepository;
-        private LoggerInterface     $logger;
+//        private MessengerRepository $messengerRepository;
+//        private LoggerInterface     $logger;
         
-        public function __construct(MessengerRepository $messengerRepository, LoggerInterface $logger)
+        public function __construct(private readonly  MessengerRepository $messengerRepository, private readonly LoggerInterface $logger, private readonly ParameterBagInterface $parameterBag,)
         {
-            $this->messengerRepository  = $messengerRepository;
-            $this->logger               = $logger;
+//            $this->messengerRepository  = $messengerRepository;
+//            $this->logger               = $logger;
         }
         
         
         //    https://symfony.com/doc/current/messenger.html#messenger-events
         public function onMessageEvent(WorkerMessageHandledEvent $event): void
         {
-            // gets the message instance
-            $message    = $event->getEnvelope()->getMessage();
-            $result     = match (true) {
-                $message instanceof SendEmailMessage    => $this->handleSendEmailMessage($message, $event),
-                $message instanceof EmailMessage        => "dede",
-                $message instanceof SmsMessage          => $this->handleSendSmsMessage($message, $event),
-                default => "Message type not recognized",
-            };
+            if ($this->parameterBag->get("neox_notify.save_notify")) {
+                // gets the message instance
+                $message    = $event->getEnvelope()->getMessage();
+                $result     = match (true) {
+                    $message instanceof SendEmailMessage    => $this->handleSendEmailMessage($message, $event),
+                    $message instanceof EmailMessage        => "dede",
+                    $message instanceof SmsMessage          => $this->handleSendSmsMessage($message, $event),
+                    default => "Message type not recognized",
+                };
+            }
+
         }
         
         public function onFailedMessageEvent(WorkerMessageFailedEvent $event): void
         {
-            // gets the message instance
-            $message    = $event->getEnvelope()->getMessage();
-            $result     = match (true) {
-                $message instanceof SendEmailMessage    => $this->handleFaileEmailMessage($message, $event),
-                $message instanceof EmailMessage        => "dede",
-                $message instanceof SmsMessage          => $this->handleFaileSmsMessage($message, $event),
-                default => "Message type not recognized",
-            };
+            if ($this->parameterBag->get("neox_notify.save_notify")) {
+                // gets the message instance
+                $message    = $event->getEnvelope()->getMessage();
+                $result     = match (true) {
+                    $message instanceof SendEmailMessage    => $this->handleFaileEmailMessage($message, $event),
+                    $message instanceof EmailMessage        => "dede",
+                    $message instanceof SmsMessage          => $this->handleFaileSmsMessage($message, $event),
+                    default => "Message type not recognized",
+                };
+            }
+
         }
         
         public function onSentMessageEvent(WorkerMessageReceivedEvent $event): void
