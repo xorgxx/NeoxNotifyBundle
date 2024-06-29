@@ -65,6 +65,12 @@
             return $this;
         }
 
+        public function setContext(string $key, int|float|Boolean|null|string $value): NeoxNotifyAlert
+        {
+            $this->contexts[$key] = $value;
+            return $this;
+        }
+
         
         public function getSubject(): ?string
         {

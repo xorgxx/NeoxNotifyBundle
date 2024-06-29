@@ -148,9 +148,13 @@ myController.php
         template: 'default'             -> template name in folder "emails: Partial\emails\"
         subject: 'Download file'        -> subject of email
         content: '....'                 -> content/body email, sms, ....
-        contexts: ["name" => "symfony"] -> variable you may want to pass to twig in [template: 'default']!!
         
-        *** for now on there is no possibility to add any variable as $xxxxx straite by attribute, but it will be implement soon !!
+        ------------ !!!! SUBJECT and CONTEXTS are special !!!! ------------------------------
+        contexts: [ "name" => "file", "opt" => "[attributes.file;attributes.controller]"], 
+        subject: "Download file [attributes.file;attributes.controller]"
+        
+        In subject | add "xxxxx xxxxx [attributes.file;attributes.controller]" in subject it will read in the Request object -> attribute-get("file")
+        In contexts: [ "opt" => "[attributes.file;attributes.controller]"] it will read in the Request object -> attribute-get("file") and pass (neox_file, neox_controller) to twig in [template: 'default'] 
         
 ```
 
