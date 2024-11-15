@@ -14,8 +14,8 @@
     class NeoxNotifyAlertService
     {
         public ?NeoxNotifyAlert $neoxNotifyAlert = null;
-        private string          $controller;
-        private string          $action;
+        private ?string          $controller    = null;
+        private ?string          $action        = null;
 
         public function __construct(private readonly RequestStack $requestStack, private readonly ParameterBagInterface $parameterBag, private readonly NotificationStrategyFactory $notificationStrategyFactory)
         {
@@ -181,13 +181,29 @@
             }
         }
 
+//        private function getInfoAboutCurrentRequest(): void
+//        {
+//            $request = $this->requestStack->getCurrentRequest();
+//
+//            if ($request) {
+//                $controllerName = $request->attributes->get('_controller');
+//                list($this->controller, $this->action) = explode('::', $controllerName);
+//            }
+//        }
         private function getInfoAboutCurrentRequest(): void
         {
             $request = $this->requestStack->getCurrentRequest();
 
             if ($request) {
                 $controllerName = $request->attributes->get('_controller');
-                list($this->controller, $this->action) = explode('::', $controllerName);
+
+                if (is_string($controllerName) && strpos($controllerName, '::') !== false) {
+                    list($this->controller, $this->action) = explode('::', $controllerName);
+                } else {
+                    // Gère les cas où le contrôleur est invalide
+                    $this->controller = null;
+                    $this->action = null;
+                }
             }
         }
 
