@@ -36,6 +36,9 @@
             return $this->neoxNotifyAlert;
         }
 
+        /**
+         * @throws \ReflectionException
+         */
         public function setNeoxNotifyAlert(): NeoxNotifyAlert
         {
             // Apply SEO settings from configuration
@@ -146,16 +149,36 @@
                 ->setContent($neoxBagParams [ 'service' ][ 'content' ] ?? null);
         }
 
+//        /**
+//         * @throws \ReflectionException
+//         */
+//        private function getAttributesFromControllerAndMethod(): array
+//        {
+//            $this->getInfoAboutCurrentRequest();
+//            $classAttributes  = (new ReflectionClass($this->controller))->getAttributes(NeoxNotifyAlert::class);
+//            $methodAttributes = (new ReflectionMethod($this->controller, $this->action))->getAttributes(NeoxNotifyAlert::class);
+//
+//            return array_merge($classAttributes, $methodAttributes);
+//        }
         /**
-         * @throws \ReflectionException
          */
         private function getAttributesFromControllerAndMethod(): array
         {
             $this->getInfoAboutCurrentRequest();
-            $classAttributes  = (new ReflectionClass($this->controller))->getAttributes(NeoxNotifyAlert::class);
-            $methodAttributes = (new ReflectionMethod($this->controller, $this->action))->getAttributes(NeoxNotifyAlert::class);
 
-            return array_merge($classAttributes, $methodAttributes);
+            if (!$this->controller || !$this->action) {
+                return [];
+            }
+
+            try {
+                $classAttributes = (new ReflectionClass($this->controller))->getAttributes(NeoxNotifyAlert::class);
+                $methodAttributes = (new ReflectionMethod($this->controller, $this->action))->getAttributes(NeoxNotifyAlert::class);
+
+                return array_merge($classAttributes, $methodAttributes);
+            } catch (\ReflectionException $e) {
+                // Log ou gérer l'erreur
+                return [];
+            }
         }
 
         private function getInfoAboutCurrentRequest(): void
